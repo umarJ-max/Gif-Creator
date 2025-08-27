@@ -701,7 +701,52 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.min.js"></script>
+    <script>
+        // Load gif.js library dynamically with error handling
+        function loadGifJS() {
+            return new Promise((resolve, reject) => {
+                if (typeof GIF !== 'undefined') {
+                    resolve();
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.min.js';
+                script.onload = () => {
+                    if (typeof GIF !== 'undefined') {
+                        resolve();
+                    } else {
+                        reject(new Error('GIF library failed to load'));
+                    }
+                };
+                script.onerror = () => reject(new Error('Failed to load GIF library'));
+                document.head.appendChild(script);
+            });
+        }
+
+        // Wait for both DOM and gif.js to load
+        Promise.all([
+            new Promise(resolve => {
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', resolve);
+                } else {
+                    resolve();
+                }
+            }),
+            loadGifJS()
+        ]).then(() => {
+            try {
+                window.gifCreator = new EnhancedGIFCreator();
+                console.log('🎬 Umar J GIF Creator initialized successfully!');
+            } catch (error) {
+                console.error('Failed to initialize GIF Creator:', error);
+                alert('Failed to initialize the application. Please refresh the page and try again.');
+            }
+        }).catch(error => {
+            console.error('Failed to load dependencies:', error);
+            alert('Failed to load required libraries. Please check your internet connection and refresh the page.');
+        });
+    </script>
     <script>
         class EnhancedGIFCreator {
             constructor() {
@@ -898,6 +943,11 @@
                 this.hideStatus();
 
                 try {
+                    // Verify GIF library is available
+                    if (typeof GIF === 'undefined') {
+                        throw new Error('GIF library is not available. Please refresh the page.');
+                    }
+
                     const delay = parseInt(this.elements.delayInput.value);
                     const quality = parseInt(this.elements.qualityInput.value);
                     const maxSize = parseInt(this.elements.sizeInput.value);
@@ -1127,15 +1177,7 @@
         }
 
         // Initialize the application with error handling
-        document.addEventListener('DOMContentLoaded', () => {
-            try {
-                window.gifCreator = new EnhancedGIFCreator();
-                console.log('🎬 Umar J GIF Creator initialized successfully!');
-            } catch (error) {
-                console.error('Failed to initialize GIF Creator:', error);
-                alert('Failed to initialize the application. Please refresh the page and try again.');
-            }
-        });
+        // Remove the old initialization code - it's now handled above
 
         // Add some nice entrance animations
         window.addEventListener('load', () => {
