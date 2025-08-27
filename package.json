@@ -1,0 +1,42 @@
+{
+  "name": "umarj-gif-creator",
+  "version": "1.0.0",
+  "description": "Professional GIF Creator by Umar J - Transform your images into stunning animated GIFs",
+  "main": "index.html",
+  "homepage": "https://umarj-gif-creator.vercel.app",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site, no build needed'",
+    "deploy": "vercel --prod",
+    "preview": "vercel"
+  },
+  "keywords": [
+    "gif",
+    "creator",
+    "animation",
+    "image-processing",
+    "web-app",
+    "umar-j",
+    "gif-maker",
+    "image-to-gif"
+  ],
+  "author": {
+    "name": "Umar J",
+    "email": "your-email@example.com",
+    "url": "https://your-portfolio.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/umarj-gif-creator"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/umarj-gif-creator/issues"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}
