@@ -1,1323 +1,866 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umar J - Professional GIF Creator</title>
-    <meta name="description" content="Create amazing GIFs with Umar J's professional GIF creator. Easy to use, beautiful results.">
-    <meta name="keywords" content="GIF creator, animation maker, Umar J, image to gif">
-    
-    <!-- Preload fonts for better performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --glass-border: rgba(255, 255, 255, 0.18);
-            --shadow-primary: 0 20px 60px rgba(102, 126, 234, 0.15);
-            --shadow-secondary: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --text-muted: #94a3b8;
-            --border-color: #e2e8f0;
-            --bg-light: #f8fafc;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--primary-gradient);
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Animated background elements */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(120deg); }
-            66% { transform: translate(-20px, 20px) rotate(240deg); }
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 32px;
-            padding: 50px;
-            max-width: 900px;
-            margin: 0 auto;
-            box-shadow: var(--shadow-primary);
-            border: 1px solid var(--glass-border);
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes slideUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(60px) scale(0.95); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .brand {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .brand::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: var(--primary-gradient);
-            border-radius: 2px;
-        }
-
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 1.3rem;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .tagline {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-style: italic;
-        }
-
-        .upload-section {
-            margin-bottom: 40px;
-        }
-
-        .upload-area {
-            border: 3px dashed var(--border-color);
-            border-radius: 24px;
-            padding: 80px 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            background: linear-gradient(135deg, var(--bg-light), #f1f5f9);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .upload-area::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .upload-area:hover::before {
-            left: 100%;
-        }
-
-        .upload-area:hover {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #f0f4ff, #e0e7ff);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-secondary);
-        }
-
-        .upload-area.dragover {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-            transform: scale(1.02);
-        }
-
-        .upload-icon {
-            font-size: 5rem;
-            margin-bottom: 25px;
-            transition: all 0.4s ease;
-            display: inline-block;
-        }
-
-        .upload-area:hover .upload-icon {
-            transform: scale(1.1) rotateZ(5deg);
-        }
-
-        .upload-text {
-            font-size: 1.4rem;
-            color: var(--text-primary);
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .upload-hint {
-            color: var(--text-muted);
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .control-group {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .control-group::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary-gradient);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .control-group:hover::before {
-            transform: scaleX(1);
-        }
-
-        .control-group:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-secondary);
-        }
-
-        .control-label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 700;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .control-input, .control-select {
-            width: 100%;
-            padding: 15px 18px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: white;
-            font-weight: 500;
-        }
-
-        .control-input:focus, .control-select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-            transform: scale(1.02);
-        }
-
-        .preview-section {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .preview-area {
-            background: white;
-            border-radius: 24px;
-            padding: 50px;
-            border: 2px solid var(--border-color);
-            min-height: 350px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .preview-area::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--primary-gradient);
-            border-radius: 24px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .preview-area.has-gif::before {
-            opacity: 1;
-        }
-
-        .preview-canvas {
-            max-width: 100%;
-            max-height: 450px;
-            border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease;
-        }
-
-        .preview-canvas:hover {
-            transform: scale(1.02);
-        }
-
-        .preview-placeholder {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        .actions {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-        }
-
-        .btn {
-            padding: 18px 36px;
-            border: none;
-            border-radius: 16px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: var(--secondary-gradient);
-            color: white;
-            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.3);
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(240, 147, 251, 0.4);
-        }
-
-        .btn-success {
-            background: var(--success-gradient);
-            color: white;
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
-        }
-
-        .btn-success:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(79, 172, 254, 0.4);
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
-        .progress-container {
-            margin: 30px 0;
-            display: none;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--border-color);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--primary-gradient);
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 4px;
-        }
-
-        .progress-text {
-            text-align: center;
-            color: var(--text-secondary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .status-message {
-            margin: 25px 0;
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1rem;
-            display: none;
-            animation: fadeInUp 0.3s ease;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .status-success {
-            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-            color: #166534;
-            border: 2px solid #86efac;
-        }
-
-        .status-error {
-            background: linear-gradient(135deg, #fef2f2, #fecaca);
-            color: #dc2626;
-            border: 2px solid #f87171;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 40px;
-            border-top: 2px solid var(--border-color);
-            position: relative;
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 2px;
-            background: var(--primary-gradient);
-        }
-
-        .footer-brand {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-        }
-
-        .footer-text {
-            color: var(--text-muted);
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 25px;
-                margin: 10px;
-                border-radius: 24px;
-            }
-
-            .brand {
-                font-size: 2.5rem;
-            }
-
-            .upload-area {
-                padding: 60px 20px;
-            }
-
-            .controls {
-                grid-template-columns: 1fr;
-            }
-
-            .actions {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .stats {
-                gap: 20px;
-            }
-        }
-
-        /* Loading animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Pulse animation for creating state */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .creating {
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIF Studio</title>
+  <meta name="description" content="Turn images into animated GIFs — fast, clean, in-browser." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #080808;
+      --surface:   #101010;
+      --surface2:  #161616;
+      --border:    #202020;
+      --border2:   #2a2a2a;
+      --teal:      #00e5c0;
+      --teal-dim:  rgba(0,229,192,.10);
+      --teal-glow: rgba(0,229,192,.22);
+      --amber:     #f5a623;
+      --red:       #ff4f4f;
+      --text:      #ebebeb;
+      --muted:     #5a5a5a;
+      --muted2:    #3a3a3a;
+      --mono:      'DM Mono', monospace;
+      --display:   'Syne', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    /* noise */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .018;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 18px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0;
+      background: rgba(8,8,8,.9);
+      backdrop-filter: blur(14px);
+      z-index: 100;
+    }
+    .logo {
+      font-family: var(--display);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      color: var(--text);
+    }
+    .logo span { color: var(--teal); }
+    .header-badge {
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border2);
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 48px 52px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .62rem;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--teal);
+    }
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: .95;
+      letter-spacing: -.05em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--teal);
+    }
+    .hero-sub {
+      font-size: .78rem;
+      color: var(--muted);
+      letter-spacing: .05em;
+      line-height: 1.7;
+      max-width: 400px;
+    }
+
+    /* ── WORKSPACE ── */
+    .workspace {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 48px 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    /* ── PANEL ── */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .panel-head {
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .step-tag {
+      font-size: .58rem;
+      font-weight: 500;
+      letter-spacing: .15em;
+      color: var(--teal);
+      border: 1px solid rgba(0,229,192,.2);
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+    .panel-name {
+      font-size: .65rem;
+      font-weight: 400;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .panel-body { padding: 24px; }
+
+    /* ── UPLOAD ZONE ── */
+    .upload-zone {
+      border: 1px dashed var(--border2);
+      padding: 56px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      background: var(--surface2);
+      position: relative;
+    }
+    .upload-zone:hover,
+    .upload-zone.over {
+      border-color: var(--teal);
+      background: var(--teal-dim);
+    }
+    .upload-zone.over { transform: scale(1.008); }
+    .upload-zone-icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      display: block;
+      transition: transform .2s;
+    }
+    .upload-zone:hover .upload-zone-icon { transform: translateY(-3px); }
+    .upload-cta {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .upload-hint {
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .07em;
+    }
+    input[type=file] { display: none; }
+
+    /* ── FRAME STRIP ── */
+    .strip-wrap { margin-top: 20px; display: none; }
+    .strip-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .strip-meta-label {
+      font-size: .6rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .strip-meta-hint {
+      font-size: .58rem;
+      color: var(--muted2);
+      letter-spacing: .06em;
+    }
+    .frame-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border2) transparent;
+    }
+    .frame-strip::-webkit-scrollbar { height: 3px; }
+    .frame-strip::-webkit-scrollbar-thumb { background: var(--border2); }
+    .thumb {
+      flex-shrink: 0;
+      width: 68px; height: 68px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      cursor: grab;
+      transition: border-color .15s;
+    }
+    .thumb:hover { border-color: var(--teal); }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .thumb .t-num {
+      position: absolute; bottom: 2px; left: 3px;
+      font-size: .48rem;
+      background: rgba(0,0,0,.7);
+      color: rgba(255,255,255,.5);
+      padding: 1px 4px;
+      font-family: var(--mono);
+    }
+    .thumb .t-del {
+      position: absolute; top: 2px; right: 2px;
+      font-size: .52rem;
+      background: rgba(0,0,0,.8);
+      color: var(--red);
+      padding: 1px 4px;
+      cursor: pointer;
+      display: none;
+      line-height: 1.4;
+    }
+    .thumb:hover .t-del { display: block; }
+
+    /* ── CONTROLS GRID ── */
+    .ctrl-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .ctrl {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+    .ctrl-label {
+      display: block;
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    select {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: .78rem;
+      padding: 8px 30px 8px 10px;
+      appearance: none;
+      cursor: pointer;
+      transition: border-color .15s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath d='M0 0l4.5 5L9 0z' fill='%23404040'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+    select:focus { outline: none; border-color: var(--teal); }
+
+    /* ── BUTTONS ── */
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--display);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 11px 24px;
+      border: none;
+      cursor: pointer;
+      transition: all .18s;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .btn-primary { background: var(--teal); color: #000; }
+    .btn-primary:hover:not(:disabled) { background: #00ffd5; box-shadow: 0 0 20px var(--teal-glow); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border2);
+    }
+    .btn-ghost:hover:not(:disabled) { border-color: var(--teal); color: var(--teal); }
+    .btn-red {
+      background: transparent;
+      color: var(--red);
+      border: 1px solid rgba(255,79,79,.2);
+    }
+    .btn-red:hover:not(:disabled) { background: rgba(255,79,79,.06); }
+    .btn:disabled { opacity: .3; cursor: not-allowed; }
+
+    /* ── PROGRESS ── */
+    .progress-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 18px 24px;
+      display: none;
+    }
+    .progress-track {
+      height: 2px;
+      background: var(--border2);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--teal);
+      transition: width .25s ease;
+      box-shadow: 0 0 6px var(--teal-glow);
+    }
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .p-label { font-size: .68rem; color: var(--muted); }
+    .p-pct   { font-size: .68rem; color: var(--teal); font-weight: 500; }
+
+    /* ── STATUS ── */
+    .status-msg {
+      padding: 11px 20px;
+      font-size: .72rem;
+      display: none;
+      letter-spacing: .04em;
+    }
+    .status-msg.ok  { background: rgba(0,229,192,.07); border: 1px solid rgba(0,229,192,.18); color: var(--teal); }
+    .status-msg.err { background: rgba(255,79,79,.07);  border: 1px solid rgba(255,79,79,.18);  color: var(--red);  }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: none;
+      flex-direction: row;
+      border: 1px solid var(--border);
+    }
+    .stat {
+      flex: 1;
+      padding: 20px 24px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-val {
+      font-family: var(--display);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--teal);
+      letter-spacing: -.04em;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .stat-key {
+      font-size: .58rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── PREVIEW ── */
+    .preview-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 24px;
+    }
+    .preview-empty-inner { text-align: center; }
+    .preview-empty-inner .pe-icon { font-size: 2rem; opacity: .12; display: block; margin-bottom: 10px; }
+    .preview-empty-inner p { font-size: .65rem; color: var(--muted2); letter-spacing: .08em; }
+    .preview-gif { max-width: 100%; max-height: 500px; display: block; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-l { font-size: .6rem; color: var(--muted2); letter-spacing: .08em; }
+    .footer-r { font-size: .6rem; color: var(--muted2); letter-spacing: .08em; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .fu { opacity: 0; animation: fadeUp .5s ease forwards; }
+    .fu:nth-child(1) { animation-delay: .04s; }
+    .fu:nth-child(2) { animation-delay: .11s; }
+    .fu:nth-child(3) { animation-delay: .18s; }
+    .fu:nth-child(4) { animation-delay: .25s; }
+    .fu:nth-child(5) { animation-delay: .32s; }
+    .fu:nth-child(6) { animation-delay: .39s; }
+
+    .spin {
+      display: inline-block;
+      width: 11px; height: 11px;
+      border: 2px solid rgba(0,0,0,.18);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin .65s linear infinite;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .site-header { padding: 14px 20px; }
+      .hero { padding: 44px 20px 36px; }
+      .workspace { padding: 0 20px 60px; }
+      .ctrl-grid { grid-template-columns: 1fr; }
+      .btn-row { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+      .stats-row { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .site-footer { padding: 16px 20px; flex-direction: column; gap: 6px; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1 class="brand">Umar J</h1>
-            <p class="subtitle">Professional GIF Creator</p>
-            <p class="tagline">Transform your images into stunning animated GIFs</p>
+
+  <header class="site-header">
+    <div class="logo">GIF<span>.</span>STUDIO</div>
+    <div class="header-badge">Browser · No Upload · Free</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-eyebrow">Image → GIF Converter</div>
+    <h1 class="hero-title">Animate<br><em>anything.</em></h1>
+    <p class="hero-sub">Drop your images, set the speed, get a GIF — all inside your browser. No server. No storage. No limits.</p>
+  </section>
+
+  <main class="workspace">
+
+    <!-- 01 UPLOAD -->
+    <div class="panel fu">
+      <div class="panel-head">
+        <span class="step-tag">01</span>
+        <span class="panel-name">Add Frames</span>
+      </div>
+      <div class="panel-body">
+        <div class="upload-zone" id="uploadZone">
+          <span class="upload-zone-icon">🖼</span>
+          <div class="upload-cta">Drop images here or click to browse</div>
+          <div class="upload-hint">JPG &nbsp;·&nbsp; PNG &nbsp;·&nbsp; WebP &nbsp;·&nbsp; GIF &nbsp;|&nbsp; Multiple files supported</div>
+          <input type="file" id="fileInput" multiple accept="image/jpeg,image/png,image/webp,image/gif" />
         </div>
-
-        <div class="upload-section">
-            <div class="upload-area" id="uploadArea">
-                <div class="upload-icon">🎬</div>
-                <div class="upload-text">Drop your images here or click to browse</div>
-                <div class="upload-hint">Supports JPG, PNG, WebP • Multiple files • Max 50MB total</div>
-                <input type="file" id="fileInput" class="file-input" multiple accept="image/jpeg,image/png,image/webp">
-            </div>
+        <div class="strip-wrap" id="stripWrap">
+          <div class="strip-meta">
+            <span class="strip-meta-label" id="stripLabel">0 frames</span>
+            <span class="strip-meta-hint">Drag to reorder &nbsp;·&nbsp; × to remove</span>
+          </div>
+          <div class="frame-strip" id="frameStrip"></div>
         </div>
-
-        <div class="controls">
-            <div class="control-group">
-                <label class="control-label" for="delayInput">Frame Delay</label>
-                <select id="delayInput" class="control-select">
-                    <option value="100">Ultra Fast (100ms)</option>
-                    <option value="200">Fast (200ms)</option>
-                    <option value="500" selected>Normal (500ms)</option>
-                    <option value="1000">Slow (1000ms)</option>
-                    <option value="2000">Very Slow (2000ms)</option>
-                </select>
-            </div>
-            
-            <div class="control-group">
-                <label class="control-label" for="qualityInput">Quality Level</label>
-                <select id="qualityInput" class="control-select">
-                    <option value="1">Ultra High (Largest)</option>
-                    <option value="5">High Quality</option>
-                    <option value="10" selected>Medium (Recommended)</option>
-                    <option value="15">Low (Smaller)</option>
-                    <option value="20">Ultra Low (Tiny)</option>
-                </select>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="sizeInput">Output Size</label>
-                <select id="sizeInput" class="control-select">
-                    <option value="1024">HD (1024px)</option>
-                    <option value="800">Large (800px)</option>
-                    <option value="600" selected>Medium (600px)</option>
-                    <option value="400">Small (400px)</option>
-                    <option value="200">Thumbnail (200px)</option>
-                </select>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="loopInput">Loop Options</label>
-                <select id="loopInput" class="control-select">
-                    <option value="0" selected>Infinite Loop</option>
-                    <option value="1">Play Once</option>
-                    <option value="3">3 Times</option>
-                    <option value="5">5 Times</option>
-                    <option value="10">10 Times</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="progress-container" id="progressContainer">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="progress-text" id="progressText">Preparing...</div>
-        </div>
-
-        <div class="status-message" id="statusMessage"></div>
-
-        <div class="stats" id="statsSection" style="display: none;">
-            <div class="stat-item">
-                <span class="stat-number" id="frameCount">0</span>
-                <span class="stat-label">Frames</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="totalSize">0KB</span>
-                <span class="stat-label">Size</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="duration">0s</span>
-                <span class="stat-label">Duration</span>
-            </div>
-        </div>
-
-        <div class="preview-section">
-            <div class="preview-area" id="previewArea">
-                <div class="preview-placeholder">✨ Your amazing GIF will appear here</div>
-            </div>
-        </div>
-
-        <div class="actions">
-            <button class="btn btn-primary" id="createBtn" disabled>
-                <span>🎨 Create GIF</span>
-            </button>
-            <button class="btn btn-secondary" id="downloadBtn" style="display: none;">
-                <span>⬇️ Download</span>
-            </button>
-            <button class="btn btn-success" id="shareBtn" style="display: none;">
-                <span>🚀 Share</span>
-            </button>
-        </div>
-
-        <div class="footer">
-            <div class="footer-brand">Umar J</div>
-            <div class="footer-text">Creating stunning GIFs with passion and precision</div>
-        </div>
+      </div>
     </div>
 
-    <!-- Primary script loading -->
-    <script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.min.js" async defer></script>
-    
-    <script>
-        // Load gif.js library with multiple fallback CDNs
-        function loadGifJS() {
-            return new Promise((resolve, reject) => {
-                if (typeof GIF !== 'undefined') {
-                    resolve();
-                    return;
-                }
+    <!-- 02 CONFIGURE -->
+    <div class="panel fu">
+      <div class="panel-head">
+        <span class="step-tag">02</span>
+        <span class="panel-name">Configure</span>
+      </div>
+      <div class="panel-body">
+        <div class="ctrl-grid">
+          <div class="ctrl">
+            <label class="ctrl-label" for="delayInput">Frame Speed</label>
+            <select id="delayInput">
+              <option value="80">Ultra Fast — 80ms</option>
+              <option value="150">Fast — 150ms</option>
+              <option value="300" selected>Normal — 300ms</option>
+              <option value="600">Slow — 600ms</option>
+              <option value="1200">Very Slow — 1200ms</option>
+            </select>
+          </div>
+          <div class="ctrl">
+            <label class="ctrl-label" for="qualityInput">Quality</label>
+            <select id="qualityInput">
+              <option value="1">Maximum (large file)</option>
+              <option value="5">High</option>
+              <option value="10" selected>Balanced</option>
+              <option value="15">Low (small file)</option>
+            </select>
+          </div>
+          <div class="ctrl">
+            <label class="ctrl-label" for="sizeInput">Output Size</label>
+            <select id="sizeInput">
+              <option value="1080">1080px</option>
+              <option value="800">800px</option>
+              <option value="600" selected>600px</option>
+              <option value="400">400px</option>
+              <option value="240">240px</option>
+            </select>
+          </div>
+          <div class="ctrl">
+            <label class="ctrl-label" for="loopInput">Loop</label>
+            <select id="loopInput">
+              <option value="0" selected>Infinite</option>
+              <option value="1">Once</option>
+              <option value="3">3×</option>
+              <option value="5">5×</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                const cdnUrls = [
-                    'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.min.js',
-                    'https://unpkg.com/gif.js@0.2.0/dist/gif.min.js',
-                    'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.min.js'
-                ];
+    <!-- 03 EXPORT -->
+    <div class="panel fu">
+      <div class="panel-head">
+        <span class="step-tag">03</span>
+        <span class="panel-name">Create &amp; Export</span>
+      </div>
+      <div class="panel-body">
+        <div class="btn-row">
+          <button class="btn btn-primary" id="createBtn" disabled>
+            <span id="createLabel">Generate GIF</span>
+          </button>
+          <button class="btn btn-ghost" id="downloadBtn" style="display:none">↓&nbsp; Download</button>
+          <button class="btn btn-red"   id="clearBtn"   style="display:none">✕&nbsp; Clear All</button>
+        </div>
+      </div>
+    </div>
 
-                let currentIndex = 0;
+    <!-- PROGRESS -->
+    <div class="progress-wrap fu" id="progressWrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-row">
+        <span class="p-label" id="progressLabel">Initialising…</span>
+        <span class="p-pct"   id="progressPct">0%</span>
+      </div>
+    </div>
 
-                function tryNextCDN() {
-                    if (currentIndex >= cdnUrls.length) {
-                        reject(new Error('All CDN attempts failed'));
-                        return;
-                    }
+    <!-- STATUS -->
+    <div class="status-msg fu" id="statusMsg"></div>
 
-                    const script = document.createElement('script');
-                    script.src = cdnUrls[currentIndex];
-                    script.timeout = 10000; // 10 second timeout
-                    
-                    const timeout = setTimeout(() => {
-                        script.remove();
-                        currentIndex++;
-                        tryNextCDN();
-                    }, 10000);
+    <!-- STATS -->
+    <div class="stats-row fu" id="statsRow">
+      <div class="stat">
+        <span class="stat-val" id="sFrames">—</span>
+        <span class="stat-key">Frames</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val" id="sSize">—</span>
+        <span class="stat-key">File Size</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val" id="sDuration">—</span>
+        <span class="stat-key">Duration</span>
+      </div>
+    </div>
 
-                    script.onload = () => {
-                        clearTimeout(timeout);
-                        setTimeout(() => {
-                            if (typeof GIF !== 'undefined') {
-                                resolve();
-                            } else {
-                                currentIndex++;
-                                tryNextCDN();
-                            }
-                        }, 100); // Small delay to ensure library is fully loaded
-                    };
+    <!-- PREVIEW -->
+    <div class="preview-box fu" id="previewBox">
+      <div class="preview-empty-inner" id="previewEmpty">
+        <span class="pe-icon">🎞</span>
+        <p>Your GIF will appear here</p>
+      </div>
+    </div>
 
-                    script.onerror = () => {
-                        clearTimeout(timeout);
-                        script.remove();
-                        currentIndex++;
-                        tryNextCDN();
-                    };
+  </main>
 
-                    document.head.appendChild(script);
-                }
+  <footer class="site-footer">
+    <div class="footer-l">All processing is local — nothing leaves your device.</div>
+    <div class="footer-r">built by Umar J</div>
+  </footer>
 
-                tryNextCDN();
-            });
-        }
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+  <script>
+  (() => {
+    const state = { images: [], gifBlob: null, working: false };
+    const $ = id => document.getElementById(id);
 
-        // Initialize application with better timing
-        function initializeApp() {
-            // Wait a bit longer for the primary script to load
-            setTimeout(() => {
-                if (typeof GIF !== 'undefined') {
-                    // Primary script loaded successfully
-                    try {
-                        window.gifCreator = new EnhancedGIFCreator();
-                        console.log('🎬 Umar J GIF Creator initialized successfully!');
-                        return;
-                    } catch (error) {
-                        console.error('Failed to initialize with primary script:', error);
-                    }
-                }
+    const el = {
+      zone:          $('uploadZone'),
+      fileInput:     $('fileInput'),
+      stripWrap:     $('stripWrap'),
+      stripLabel:    $('stripLabel'),
+      strip:         $('frameStrip'),
+      createBtn:     $('createBtn'),
+      createLabel:   $('createLabel'),
+      downloadBtn:   $('downloadBtn'),
+      clearBtn:      $('clearBtn'),
+      progressWrap:  $('progressWrap'),
+      progressFill:  $('progressFill'),
+      progressLabel: $('progressLabel'),
+      progressPct:   $('progressPct'),
+      statusMsg:     $('statusMsg'),
+      statsRow:      $('statsRow'),
+      sFrames:       $('sFrames'),
+      sSize:         $('sSize'),
+      sDuration:     $('sDuration'),
+      previewBox:    $('previewBox'),
+      previewEmpty:  $('previewEmpty'),
+    };
 
-                // Fallback to dynamic loading
-                Promise.all([
-                    new Promise(resolve => {
-                        if (document.readyState === 'loading') {
-                            document.addEventListener('DOMContentLoaded', resolve);
-                        } else {
-                            resolve();
-                        }
-                    }),
-                    loadGifJS()
-                ]).then(() => {
-                    try {
-                        window.gifCreator = new EnhancedGIFCreator();
-                        console.log('🎬 Umar J GIF Creator initialized successfully with fallback!');
-                        
-                        // Hide any loading messages
-                        const statusMessage = document.getElementById('statusMessage');
-                        if (statusMessage) {
-                            statusMessage.style.display = 'none';
-                        }
-                    } catch (error) {
-                        console.error('Failed to initialize GIF Creator:', error);
-                        showFallbackError('Failed to initialize the application. Please refresh the page and try again.');
-                    }
-                }).catch(error => {
-                    console.error('Failed to load dependencies:', error);
-                    showFallbackError('Unable to load required libraries. Please check your connection and refresh.');
-                    initializeBasicMode();
-                });
-            }, 2000); // Wait 2 seconds for primary script
-        }
+    // ── Upload ──────────────────────────────────────────────
+    el.zone.addEventListener('click', () => el.fileInput.click());
+    el.zone.addEventListener('dragover',  e => { e.preventDefault(); el.zone.classList.add('over'); });
+    el.zone.addEventListener('dragleave', () => el.zone.classList.remove('over'));
+    el.zone.addEventListener('drop', e => {
+      e.preventDefault(); el.zone.classList.remove('over');
+      loadFiles([...e.dataTransfer.files]);
+    });
+    el.fileInput.addEventListener('change', () => {
+      loadFiles([...el.fileInput.files]);
+      el.fileInput.value = '';
+    });
 
-        function showFallbackError(message) {
-            // Create or update status message
-            let statusMessage = document.getElementById('statusMessage');
-            if (!statusMessage) {
-                statusMessage = document.createElement('div');
-                statusMessage.id = 'statusMessage';
-                statusMessage.className = 'status-message';
-                const container = document.querySelector('.container');
-                if (container) {
-                    container.appendChild(statusMessage);
-                }
-            }
-            statusMessage.textContent = message;
-            statusMessage.className = 'status-message status-error';
-            statusMessage.style.display = 'block';
-        }
+    function loadFiles(files) {
+      const valid = files.filter(f => f.type.startsWith('image/'));
+      if (!valid.length) return showStatus('No valid image files found.', 'err');
+      hideStatus();
+      Promise.all(valid.map(f => new Promise((res, rej) => {
+        const url = URL.createObjectURL(f);
+        const img = new Image();
+        img.onload  = () => res({ file: f, img, url });
+        img.onerror = () => rej(new Error(`Could not load: ${f.name}`));
+        img.src = url;
+      }))).then(loaded => {
+        state.images.push(...loaded);
+        renderStrip();
+        syncUI();
+      }).catch(err => showStatus(err.message, 'err'));
+    }
 
-        // Basic mode without gif.js (for extreme fallback)
-        function initializeBasicMode() {
-            const createBtn = document.getElementById('createBtn');
-            const statusMessage = document.getElementById('statusMessage');
-            
-            if (createBtn) {
-                createBtn.textContent = '❌ GIF Creation Unavailable';
-                createBtn.disabled = true;
-                createBtn.onclick = () => {
-                    if (statusMessage) {
-                        statusMessage.textContent = 'GIF creation is currently unavailable. Please refresh the page or try again later.';
-                        statusMessage.className = 'status-message status-error';
-                        statusMessage.style.display = 'block';
-                    }
-                };
-            }
-        }
+    // ── Frame strip ─────────────────────────────────────────
+    function renderStrip() {
+      el.strip.innerHTML = '';
+      state.images.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = 'thumb';
+        div.draggable = true;
 
-        // Start initialization
-        initializeApp();
-    </script>
-    <script>
-        class EnhancedGIFCreator {
-            constructor() {
-                this.images = [];
-                this.gifBlob = null;
-                this.isCreating = false;
-                this.initializeElements();
-                this.attachEventListeners();
-                this.setupErrorHandling();
-            }
+        const img = document.createElement('img');
+        img.src = item.url; img.alt = `Frame ${i+1}`;
 
-            initializeElements() {
-                this.elements = {
-                    uploadArea: document.getElementById('uploadArea'),
-                    fileInput: document.getElementById('fileInput'),
-                    delayInput: document.getElementById('delayInput'),
-                    qualityInput: document.getElementById('qualityInput'),
-                    sizeInput: document.getElementById('sizeInput'),
-                    loopInput: document.getElementById('loopInput'),
-                    createBtn: document.getElementById('createBtn'),
-                    downloadBtn: document.getElementById('downloadBtn'),
-                    shareBtn: document.getElementById('shareBtn'),
-                    previewArea: document.getElementById('previewArea'),
-                    progressContainer: document.getElementById('progressContainer'),
-                    progressFill: document.getElementById('progressFill'),
-                    progressText: document.getElementById('progressText'),
-                    statusMessage: document.getElementById('statusMessage'),
-                    statsSection: document.getElementById('statsSection'),
-                    frameCount: document.getElementById('frameCount'),
-                    totalSize: document.getElementById('totalSize'),
-                    duration: document.getElementById('duration')
-                };
-            }
+        const num = document.createElement('span');
+        num.className = 't-num'; num.textContent = i + 1;
 
-            attachEventListeners() {
-                // Upload area events
-                this.elements.uploadArea.addEventListener('click', () => this.elements.fileInput.click());
-                this.elements.uploadArea.addEventListener('dragover', this.handleDragOver.bind(this));
-                this.elements.uploadArea.addEventListener('dragleave', this.handleDragLeave.bind(this));
-                this.elements.uploadArea.addEventListener('drop', this.handleDrop.bind(this));
-                
-                // File input
-                this.elements.fileInput.addEventListener('change', this.handleFileSelect.bind(this));
-                
-                // Buttons
-                this.elements.createBtn.addEventListener('click', this.createGIF.bind(this));
-                this.elements.downloadBtn.addEventListener('click', this.downloadGIF.bind(this));
-                this.elements.shareBtn.addEventListener('click', this.shareGIF.bind(this));
+        const del = document.createElement('span');
+        del.className = 't-del'; del.textContent = '×';
+        del.onclick = e => {
+          e.stopPropagation();
+          URL.revokeObjectURL(item.url);
+          state.images.splice(i, 1);
+          renderStrip(); syncUI();
+        };
 
-                // Control changes
-                ['delayInput', 'qualityInput', 'sizeInput', 'loopInput'].forEach(id => {
-                    this.elements[id].addEventListener('change', this.updateStats.bind(this));
-                });
-            }
+        div.append(img, num, del);
 
-            setupErrorHandling() {
-                window.addEventListener('error', (e) => {
-                    console.error('Global error:', e);
-                    this.showStatus('An unexpected error occurred. Please try again.', 'error');
-                });
-            }
+        // drag-reorder
+        let dragIdx = null;
+        div.addEventListener('dragstart', ev => {
+          dragIdx = i;
+          ev.dataTransfer.effectAllowed = 'move';
+        });
+        div.addEventListener('dragover', ev => { ev.preventDefault(); div.style.outline = '1px solid var(--teal)'; });
+        div.addEventListener('dragleave', () => div.style.outline = '');
+        div.addEventListener('drop', ev => {
+          ev.preventDefault(); div.style.outline = '';
+          const from = parseInt(ev.dataTransfer.getData('srcIdx') || dragIdx);
+          if (isNaN(from) || from === i) return;
+          const [moved] = state.images.splice(from, 1);
+          state.images.splice(i, 0, moved);
+          renderStrip();
+        });
+        div.addEventListener('dragstart', ev => ev.dataTransfer.setData('srcIdx', i));
 
-            handleDragOver(e) {
-                e.preventDefault();
-                this.elements.uploadArea.classList.add('dragover');
-            }
+        el.strip.appendChild(div);
+      });
 
-            handleDragLeave(e) {
-                e.preventDefault();
-                this.elements.uploadArea.classList.remove('dragover');
-            }
+      const n = state.images.length;
+      el.stripWrap.style.display = n ? 'block' : 'none';
+      el.stripLabel.textContent = `${n} frame${n !== 1 ? 's' : ''} loaded`;
+    }
 
-            handleDrop(e) {
-                e.preventDefault();
-                this.elements.uploadArea.classList.remove('dragover');
-                const files = Array.from(e.dataTransfer.files);
-                this.processFiles(files);
-            }
+    // ── UI state ────────────────────────────────────────────
+    function syncUI() {
+      const has = state.images.length > 0;
+      el.createBtn.disabled = !has || state.working;
+      el.clearBtn.style.display = has ? 'inline-flex' : 'none';
+    }
 
-            handleFileSelect(e) {
-                const files = Array.from(e.target.files);
-                this.processFiles(files);
-            }
+    // ── Create GIF ──────────────────────────────────────────
+    el.createBtn.onclick = async () => {
+      if (state.working || !state.images.length) return;
+      state.working = true;
+      el.createBtn.disabled = true;
+      el.createLabel.innerHTML = '<span class="spin"></span> Working…';
+      hideStatus(); hideStats();
 
-            async processFiles(files) {
-                if (this.isCreating) return;
-                
-                this.images = [];
-                this.hideStatus();
-                this.resetButtons();
-                
-                const imageFiles = files.filter(file => file.type.startsWith('image/'));
-                
-                if (imageFiles.length === 0) {
-                    this.showStatus('Please select valid image files (JPG, PNG, WebP)', 'error');
-                    return;
-                }
+      const delay   = +$('delayInput').value;
+      const quality = +$('qualityInput').value;
+      const maxPx   = +$('sizeInput').value;
+      const loop    = +$('loopInput').value;
 
-                // Check total file size (50MB limit)
-                const totalSize = imageFiles.reduce((sum, file) => sum + file.size, 0);
-                if (totalSize > 50 * 1024 * 1024) {
-                    this.showStatus('Total file size exceeds 50MB limit. Please reduce file sizes.', 'error');
-                    return;
-                }
+      showProg(0, 'Preparing frames…');
 
-                this.showStatus(`Loading ${imageFiles.length} images...`, 'success');
-                this.elements.progressContainer.style.display = 'block';
-
-                let loadedCount = 0;
-                for (const [index, file] of imageFiles.entries()) {
-                    try {
-                        const progress = (index / imageFiles.length) * 100;
-                        this.updateProgress(progress, `Loading image ${index + 1} of ${imageFiles.length}`);
-                        
-                        const image = await this.loadImage(file);
-                        this.images.push(image);
-                        loadedCount++;
-                    } catch (error) {
-                        console.error('Error loading image:', error);
-                        this.showStatus(`Failed to load image: ${file.name}`, 'error');
-                    }
-                }
-
-                this.elements.progressContainer.style.display = 'none';
-
-                if (this.images.length > 0) {
-                    this.elements.createBtn.disabled = false;
-                    this.showStatus(`${this.images.length} images loaded successfully!`, 'success');
-                    this.updateUploadArea();
-                    this.updateStats();
-                    this.elements.statsSection.style.display = 'flex';
-                } else {
-                    this.showStatus('Failed to load images. Please try again.', 'error');
-                }
-            }
-
-            loadImage(file) {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        URL.revokeObjectURL(img.src); // Clean up memory
-                        resolve(img);
-                    };
-                    img.onerror = () => {
-                        URL.revokeObjectURL(img.src);
-                        reject(new Error('Failed to load image'));
-                    };
-                    img.src = URL.createObjectURL(file);
-                });
-            }
-
-            updateUploadArea() {
-                this.elements.uploadArea.innerHTML = `
-                    <div class="upload-icon">✅</div>
-                    <div class="upload-text">${this.images.length} images ready for magic</div>
-                    <div class="upload-hint">Click to add more images or create your GIF below</div>
-                `;
-            }
-
-            updateStats() {
-                if (this.images.length === 0) return;
-                
-                const delay = parseInt(this.elements.delayInput.value);
-                const duration = (this.images.length * delay) / 1000;
-                
-                this.elements.frameCount.textContent = this.images.length;
-                this.elements.duration.textContent = duration.toFixed(1) + 's';
-                
-                // Estimate file size (rough calculation)
-                const quality = parseInt(this.elements.qualityInput.value);
-                const size = parseInt(this.elements.sizeInput.value);
-                const estimatedSize = Math.round((this.images.length * size * size * (21 - quality)) / 1000);
-                
-                if (estimatedSize > 1024) {
-                    this.elements.totalSize.textContent = (estimatedSize / 1024).toFixed(1) + 'MB';
-                } else {
-                    this.elements.totalSize.textContent = estimatedSize + 'KB';
-                }
-            }
-
-            updateProgress(percentage, text) {
-                this.elements.progressFill.style.width = percentage + '%';
-                this.elements.progressText.textContent = text;
-            }
-
-            async createGIF() {
-                if (this.images.length === 0 || this.isCreating) return;
-
-                this.isCreating = true;
-                this.elements.createBtn.disabled = true;
-                this.elements.createBtn.innerHTML = '<div class="loading"></div> Creating Magic...';
-                this.elements.createBtn.classList.add('creating');
-                this.elements.progressContainer.style.display = 'block';
-                this.hideStatus();
-
-                try {
-                    // Verify GIF library is available
-                    if (typeof GIF === 'undefined') {
-                        throw new Error('GIF library is not available. Please refresh the page.');
-                    }
-
-                    const delay = parseInt(this.elements.delayInput.value);
-                    const quality = parseInt(this.elements.qualityInput.value);
-                    const maxSize = parseInt(this.elements.sizeInput.value);
-                    const repeat = parseInt(this.elements.loopInput.value);
-
-                    // Create GIF with optimized settings
-                    const gif = new GIF({
-                        workers: Math.min(navigator.hardwareConcurrency || 2, 4),
-                        quality: quality,
-                        width: maxSize,
-                        height: maxSize,
-                        workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js',
-                        repeat: repeat
-                    });
-
-                    let currentFrame = 0;
-                    gif.on('progress', (p) => {
-                        const percentage = p * 100;
-                        this.updateProgress(percentage, `Processing frame ${Math.round(p * this.images.length)} of ${this.images.length}`);
-                    });
-
-                    gif.on('finished', (blob) => {
-                        this.gifBlob = blob;
-                        this.displayGIF(blob);
-                        this.resetCreateButton();
-                        this.elements.progressContainer.style.display = 'none';
-                        this.elements.downloadBtn.style.display = 'inline-flex';
-                        this.elements.shareBtn.style.display = 'inline-flex';
-                        
-                        // Update actual file size
-                        const actualSize = blob.size;
-                        if (actualSize > 1024 * 1024) {
-                            this.elements.totalSize.textContent = (actualSize / (1024 * 1024)).toFixed(1) + 'MB';
-                        } else {
-                            this.elements.totalSize.textContent = (actualSize / 1024).toFixed(0) + 'KB';
-                        }
-                        
-                        this.showStatus('🎉 Your amazing GIF is ready!', 'success');
-                    });
-
-                    gif.on('abort', () => {
-                        this.resetCreateButton();
-                        this.elements.progressContainer.style.display = 'none';
-                        this.showStatus('GIF creation was cancelled.', 'error');
-                    });
-
-                    // Add frames with better error handling
-                    this.updateProgress(0, 'Preparing frames...');
-                    
-                    for (let i = 0; i < this.images.length; i++) {
-                        try {
-                            const canvas = this.resizeImage(this.images[i], maxSize);
-                            gif.addFrame(canvas, { delay: delay });
-                            
-                            // Update progress for frame preparation
-                            const prepProgress = ((i + 1) / this.images.length) * 20; // 20% for preparation
-                            this.updateProgress(prepProgress, `Preparing frame ${i + 1} of ${this.images.length}`);
-                        } catch (error) {
-                            console.error(`Error processing frame ${i + 1}:`, error);
-                            throw new Error(`Failed to process frame ${i + 1}`);
-                        }
-                    }
-
-                    this.updateProgress(20, 'Starting GIF generation...');
-                    gif.render();
-
-                } catch (error) {
-                    console.error('Error creating GIF:', error);
-                    this.showStatus('Failed to create GIF: ' + error.message, 'error');
-                    this.resetCreateButton();
-                    this.elements.progressContainer.style.display = 'none';
-                }
-            }
-
-            resizeImage(img, maxSize) {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-
-                // Calculate new dimensions maintaining aspect ratio
-                let { width, height } = img;
-                const aspectRatio = width / height;
-
-                if (width > height) {
-                    if (width > maxSize) {
-                        width = maxSize;
-                        height = maxSize / aspectRatio;
-                    }
-                } else {
-                    if (height > maxSize) {
-                        height = maxSize;
-                        width = maxSize * aspectRatio;
-                    }
-                }
-
-                canvas.width = Math.round(width);
-                canvas.height = Math.round(height);
-                
-                // Use better image rendering
-                ctx.imageSmoothingEnabled = true;
-                ctx.imageSmoothingQuality = 'high';
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                return canvas;
-            }
-
-            displayGIF(blob) {
-                const url = URL.createObjectURL(blob);
-                this.elements.previewArea.innerHTML = `
-                    <img src="${url}" alt="Generated GIF" class="preview-canvas">
-                `;
-                this.elements.previewArea.classList.add('has-gif');
-            }
-
-            async downloadGIF() {
-                if (!this.gifBlob) return;
-
-                try {
-                    const url = URL.createObjectURL(this.gifBlob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `umarj-gif-${new Date().toISOString().slice(0, 19).replace(/[:.]/g, '-')}.gif`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-
-                    this.showStatus('📥 GIF downloaded successfully!', 'success');
-                } catch (error) {
-                    console.error('Download error:', error);
-                    this.showStatus('Failed to download GIF. Please try again.', 'error');
-                }
-            }
-
-            async shareGIF() {
-                if (!this.gifBlob) return;
-
-                try {
-                    if (navigator.share && navigator.canShare) {
-                        const file = new File([this.gifBlob], 'umarj-amazing-gif.gif', { type: 'image/gif' });
-                        
-                        if (navigator.canShare({ files: [file] })) {
-                            await navigator.share({
-                                title: '🎬 Amazing GIF created with Umar J GIF Creator',
-                                text: 'Check out this incredible GIF I just created!',
-                                files: [file]
-                            });
-                            this.showStatus('🚀 GIF shared successfully!', 'success');
-                            return;
-                        }
-                    }
-                    
-                    // Fallback sharing methods
-                    this.fallbackShare();
-                } catch (error) {
-                    if (error.name !== 'AbortError') {
-                        console.error('Share error:', error);
-                        this.fallbackShare();
-                    }
-                }
-            }
-
-            fallbackShare() {
-                try {
-                    const url = URL.createObjectURL(this.gifBlob);
-                    const text = `🎬 Amazing GIF created with Umar J GIF Creator!\n\n${url}`;
-                    
-                    if (navigator.clipboard) {
-                        navigator.clipboard.writeText(text).then(() => {
-                            this.showStatus('🔗 GIF link copied to clipboard! Share it anywhere!', 'success');
-                        }).catch(() => {
-                            this.legacyCopyToClipboard(text);
-                        });
-                    } else {
-                        this.legacyCopyToClipboard(text);
-                    }
-                } catch (error) {
-                    console.error('Fallback share error:', error);
-                    this.showStatus('Unable to share GIF. You can right-click the image to save it.', 'error');
-                }
-            }
-
-            legacyCopyToClipboard(text) {
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                textArea.style.position = 'fixed';
-                textArea.style.opacity = '0';
-                document.body.appendChild(textArea);
-                textArea.select();
-                
-                try {
-                    document.execCommand('copy');
-                    this.showStatus('🔗 GIF link copied to clipboard!', 'success');
-                } catch (error) {
-                    this.showStatus('Unable to copy link. Please save the image manually.', 'error');
-                }
-                
-                document.body.removeChild(textArea);
-            }
-
-            resetCreateButton() {
-                this.isCreating = false;
-                this.elements.createBtn.disabled = false;
-                this.elements.createBtn.innerHTML = '<span>🎨 Create GIF</span>';
-                this.elements.createBtn.classList.remove('creating');
-            }
-
-            resetButtons() {
-                this.elements.downloadBtn.style.display = 'none';
-                this.elements.shareBtn.style.display = 'none';
-                this.elements.previewArea.classList.remove('has-gif');
-                this.elements.statsSection.style.display = 'none';
-            }
-
-            showStatus(message, type) {
-                this.elements.statusMessage.textContent = message;
-                this.elements.statusMessage.className = `status-message status-${type}`;
-                this.elements.statusMessage.style.display = 'block';
-
-                if (type === 'success') {
-                    setTimeout(() => this.hideStatus(), 4000);
-                }
-            }
-
-            hideStatus() {
-                this.elements.statusMessage.style.display = 'none';
-            }
-        }
-
-        // Initialize the application with error handling
-        // Remove the old initialization code - it's now handled above
-
-        // Add some nice entrance animations
-        window.addEventListener('load', () => {
-            const elements = document.querySelectorAll('.control-group, .btn');
-            elements.forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    el.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
+      try {
+        const gif = new GIF({
+          workers: 2, quality, repeat: loop,
+          workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js'
         });
 
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey || e.metaKey) {
-                switch (e.key) {
-                    case 'o':
-                        e.preventDefault();
-                        document.getElementById('fileInput').click();
-                        break;
-                    case 'Enter':
-                        e.preventDefault();
-                        if (!document.getElementById('createBtn').disabled) {
-                            document.getElementById('createBtn').click();
-                        }
-                        break;
-                    case 's':
-                        e.preventDefault();
-                        if (window.gifCreator && window.gifCreator.gifBlob) {
-                            window.gifCreator.downloadGIF();
-                        }
-                        break;
-                }
-            }
+        for (let i = 0; i < state.images.length; i++) {
+          const canvas = resize(state.images[i].img, maxPx);
+          gif.addFrame(canvas, { delay, copy: true });
+          showProg(Math.round(((i+1) / state.images.length) * 45), `Encoding frame ${i+1} / ${state.images.length}`);
+          await tick();
+        }
+
+        gif.on('progress', p => showProg(45 + Math.round(p * 55), 'Rendering…'));
+        gif.on('finished', blob => {
+          state.gifBlob = blob;
+          state.working = false;
+          hideProg();
+          el.createLabel.textContent = 'Generate GIF';
+          el.downloadBtn.style.display = 'inline-flex';
+          displayGIF(blob);
+          showStats(blob, delay);
+          syncUI();
         });
-    </script>
+        gif.render();
+      } catch (e) {
+        state.working = false;
+        hideProg();
+        el.createLabel.textContent = 'Generate GIF';
+        showStatus('Error: ' + e.message, 'err');
+        syncUI();
+      }
+    };
+
+    function tick() { return new Promise(r => setTimeout(r, 0)); }
+
+    function resize(img, maxPx) {
+      const canvas = document.createElement('canvas');
+      let w = img.naturalWidth, h = img.naturalHeight;
+      if (w > maxPx || h > maxPx) {
+        if (w > h) { h = Math.round(h * maxPx / w); w = maxPx; }
+        else        { w = Math.round(w * maxPx / h); h = maxPx; }
+      }
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, w, h);
+      return canvas;
+    }
+
+    // ── Download ────────────────────────────────────────────
+    el.downloadBtn.onclick = () => {
+      if (!state.gifBlob) return;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(state.gifBlob);
+      a.download = `gif-studio-${Date.now()}.gif`;
+      a.click();
+      showStatus('GIF downloaded.', 'ok');
+    };
+
+    // ── Clear ───────────────────────────────────────────────
+    el.clearBtn.onclick = () => {
+      state.images.forEach(i => URL.revokeObjectURL(i.url));
+      state.images = []; state.gifBlob = null;
+      renderStrip(); syncUI(); hideStats(); hideStatus(); hideProg();
+      el.downloadBtn.style.display = 'none';
+      el.previewBox.querySelectorAll('img').forEach(i => i.remove());
+      el.previewEmpty.style.display = '';
+    };
+
+    // ── Display GIF ─────────────────────────────────────────
+    function displayGIF(blob) {
+      el.previewBox.querySelectorAll('img').forEach(i => i.remove());
+      el.previewEmpty.style.display = 'none';
+      const img = document.createElement('img');
+      img.className = 'preview-gif';
+      img.src = URL.createObjectURL(blob);
+      el.previewBox.appendChild(img);
+    }
+
+    // ── Stats ───────────────────────────────────────────────
+    function showStats(blob, delay) {
+      const n    = state.images.length;
+      const kb   = blob.size < 1048576
+                   ? `${(blob.size/1024).toFixed(0)}KB`
+                   : `${(blob.size/1048576).toFixed(1)}MB`;
+      const dur  = `${((n * delay) / 1000).toFixed(1)}s`;
+      el.sFrames.textContent   = n;
+      el.sSize.textContent     = kb;
+      el.sDuration.textContent = dur;
+      el.statsRow.style.display = 'flex';
+    }
+    function hideStats() { el.statsRow.style.display = 'none'; }
+
+    // ── Progress ────────────────────────────────────────────
+    function showProg(pct, label) {
+      el.progressWrap.style.display = 'block';
+      el.progressFill.style.width   = pct + '%';
+      el.progressLabel.textContent  = label;
+      el.progressPct.textContent    = pct + '%';
+    }
+    function hideProg() { el.progressWrap.style.display = 'none'; }
+
+    // ── Status ──────────────────────────────────────────────
+    function showStatus(msg, type) {
+      el.statusMsg.textContent = msg;
+      el.statusMsg.className = `status-msg fu ${type}`;
+      el.statusMsg.style.display = 'block';
+      if (type === 'ok') setTimeout(hideStatus, 4000);
+    }
+    function hideStatus() { el.statusMsg.style.display = 'none'; }
+
+    // ── Keyboard shortcuts ───────────────────────────────────
+    document.addEventListener('keydown', e => {
+      const mod = e.ctrlKey || e.metaKey;
+      if (mod && e.key === 'o') { e.preventDefault(); el.fileInput.click(); }
+      if (mod && e.key === 'Enter') { e.preventDefault(); if (!el.createBtn.disabled) el.createBtn.click(); }
+      if (mod && e.key === 's') { e.preventDefault(); if (state.gifBlob) el.downloadBtn.click(); }
+    });
+
+  })();
+  </script>
 </body>
 </html>
