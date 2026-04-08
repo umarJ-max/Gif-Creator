@@ -8,12 +8,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-
   <style>
     :root {
       --sand:    #f5f0e8;
       --sand2:   #ede6d8;
-      --sand3:   #e0d8ca;
+      --sand3:   #ddd5c4;
       --cream:   #faf7f2;
       --ink:     #1a1612;
       --ink2:    #3d3630;
@@ -23,12 +22,10 @@
       --orange2: #ff7540;
       --green:   #2d8a52;
       --red:     #cc3333;
-      --border:  rgba(26,22,18,.12);
-      --shadow:  0 2px 16px rgba(26,22,18,.08);
-      --shadow2: 0 8px 40px rgba(26,22,18,.12);
+      --border:  rgba(26,22,18,.11);
+      --font:    "Plus Jakarta Sans", system-ui, sans-serif;
+      --mono:    "JetBrains Mono", monospace;
       --r:       10px;
-      --font:    'Plus Jakarta Sans', system-ui, sans-serif;
-      --mono:    'JetBrains Mono', monospace;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -39,84 +36,49 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-
-    /* ── BG TEXTURE ── */
     body::before {
-      content: '';
+      content: "";
       position: fixed; inset: 0;
-      background-image:
-        radial-gradient(circle at 18% 30%, rgba(232,93,38,.06) 0%, transparent 50%),
-        radial-gradient(circle at 82% 70%, rgba(45,138,82,.05) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
+      background:
+        radial-gradient(circle at 15% 25%, rgba(232,93,38,.07) 0%, transparent 55%),
+        radial-gradient(circle at 85% 75%, rgba(45,138,82,.05) 0%, transparent 55%);
+      pointer-events: none; z-index: 0;
     }
-
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(250,247,242,.88);
+      background: rgba(250,247,242,.9);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding: 0 48px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 0 48px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .nav-logo {
-      font-weight: 800;
-      font-size: 1.05rem;
-      letter-spacing: -.02em;
-      color: var(--ink);
-    }
-    .nav-logo span {
-      color: var(--orange);
-    }
+    .nav-logo { font-weight: 800; font-size: 1.05rem; letter-spacing: -.02em; }
+    .nav-logo span { color: var(--orange); }
     .nav-pill {
-      font-family: var(--mono);
-      font-size: .65rem;
-      font-weight: 500;
-      background: var(--sand2);
-      color: var(--ink3);
-      padding: 5px 12px;
-      border-radius: 100px;
-      letter-spacing: .04em;
+      font-family: var(--mono); font-size: .65rem;
+      background: var(--sand2); color: var(--ink3);
+      padding: 5px 12px; border-radius: 100px; letter-spacing: .04em;
     }
-
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       position: relative; z-index: 1;
-      padding: 72px 48px 56px;
-      max-width: 1000px;
-      margin: 0 auto;
+      padding: 72px 48px 52px; max-width: 1000px; margin: 0 auto;
     }
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--orange);
-      color: #fff;
-      font-size: .65rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: 5px 13px 5px 10px;
-      border-radius: 100px;
-      margin-bottom: 24px;
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--orange); color: #fff;
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      padding: 5px 13px 5px 10px; border-radius: 100px; margin-bottom: 24px;
     }
     .hero-badge::before {
-      content: '●';
-      font-size: .45rem;
-      opacity: .7;
+      content: "●"; font-size: .45rem; opacity: .7;
       animation: blink 1.6s ease infinite;
     }
     @keyframes blink { 0%,100%{opacity:.7} 50%{opacity:.15} }
     .hero-title {
       font-size: clamp(2.6rem, 6vw, 4.8rem);
-      font-weight: 800;
-      letter-spacing: -.05em;
-      line-height: 1.0;
-      color: var(--ink);
+      font-weight: 800; letter-spacing: -.05em; line-height: 1.0;
       margin-bottom: 18px;
     }
     .hero-title u {
@@ -124,375 +86,178 @@
       border-bottom: 4px solid var(--orange);
       padding-bottom: 2px;
     }
-    .hero-desc {
-      font-size: .9rem;
-      color: var(--ink3);
-      line-height: 1.65;
-      max-width: 460px;
-    }
-
-    /* ── LAYOUT ── */
+    .hero-desc { font-size: .9rem; color: var(--ink3); line-height: 1.65; max-width: 460px; }
+    /* LAYOUT */
     .app {
       position: relative; z-index: 1;
-      max-width: 1000px;
-      margin: 0 auto;
+      max-width: 1000px; margin: 0 auto;
       padding: 0 48px 100px;
       display: grid;
-      grid-template-columns: 1fr 340px;
-      grid-template-rows: auto;
+      grid-template-columns: 1fr 330px;
       gap: 20px;
     }
-
     .col-main { display: flex; flex-direction: column; gap: 16px; }
     .col-side  { display: flex; flex-direction: column; gap: 16px; }
-
-    /* ── CARDS ── */
+    /* CARD */
     .card {
       background: #fff;
       border: 1px solid var(--border);
       border-radius: var(--r);
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 16px rgba(26,22,18,.07);
       overflow: hidden;
     }
     .card-head {
       padding: 14px 20px;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
       background: var(--sand);
     }
     .card-num {
-      width: 22px; height: 22px;
-      background: var(--orange);
-      color: #fff;
-      border-radius: 50%;
-      font-size: .62rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 22px; height: 22px; background: var(--orange); color: #fff;
+      border-radius: 50%; font-size: .62rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
     }
-    .card-title {
-      font-size: .78rem;
-      font-weight: 700;
-      color: var(--ink2);
-      letter-spacing: .01em;
-    }
+    .card-title { font-size: .78rem; font-weight: 700; color: var(--ink2); }
     .card-body { padding: 20px; }
-
-    /* ── UPLOAD ZONE ── */
+    /* DROP ZONE */
     .drop-zone {
-      border: 2px dashed var(--sand3);
-      border-radius: 8px;
-      padding: 52px 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all .2s;
-      background: var(--sand);
+      border: 2px dashed var(--sand3); border-radius: 8px;
+      padding: 52px 20px; text-align: center; cursor: pointer;
+      transition: all .2s; background: var(--sand);
     }
     .drop-zone:hover, .drop-zone.over {
       border-color: var(--orange);
       background: rgba(232,93,38,.05);
     }
     .drop-zone.over { transform: scale(1.01); }
-    .dz-icon {
-      font-size: 2.8rem;
-      margin-bottom: 14px;
-      display: block;
-      transition: transform .2s;
-    }
+    .dz-icon { font-size: 2.8rem; margin-bottom: 14px; display: block; transition: transform .2s; }
     .drop-zone:hover .dz-icon { transform: translateY(-3px) scale(1.05); }
-    .dz-main {
-      font-size: .95rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 7px;
-    }
-    .dz-sub {
-      font-size: .72rem;
-      color: var(--ink4);
-      font-family: var(--mono);
-    }
+    .dz-main { font-size: .95rem; font-weight: 700; margin-bottom: 7px; }
+    .dz-sub { font-size: .72rem; color: var(--ink4); font-family: var(--mono); }
     input[type=file] { display: none; }
-
-    /* ── FRAME STRIP ── */
+    /* STRIP */
     .strip-section { margin-top: 16px; display: none; }
-    .strip-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .strip-count {
-      font-size: .72rem;
-      font-weight: 600;
-      color: var(--ink2);
-    }
-    .strip-hint {
-      font-size: .65rem;
-      color: var(--ink4);
-    }
+    .strip-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .strip-count { font-size: .72rem; font-weight: 600; color: var(--ink2); }
+    .strip-hint { font-size: .65rem; color: var(--ink4); }
     .frame-strip {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--sand3) transparent;
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+      scrollbar-width: thin; scrollbar-color: var(--sand3) transparent;
     }
     .frame-strip::-webkit-scrollbar { height: 4px; }
     .frame-strip::-webkit-scrollbar-thumb { background: var(--sand3); border-radius: 2px; }
     .thumb {
-      flex-shrink: 0;
-      width: 72px; height: 72px;
-      border-radius: 6px;
-      border: 2px solid var(--sand3);
-      overflow: hidden;
-      position: relative;
-      cursor: grab;
-      transition: border-color .15s, transform .15s;
+      flex-shrink: 0; width: 72px; height: 72px; border-radius: 6px;
+      border: 2px solid var(--sand3); overflow: hidden; position: relative;
+      cursor: grab; transition: border-color .15s, transform .15s;
     }
     .thumb:hover { border-color: var(--orange); transform: translateY(-2px); }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
     .thumb .tnum {
       position: absolute; bottom: 2px; left: 3px;
-      font-size: .48rem;
-      background: rgba(0,0,0,.5);
-      color: rgba(255,255,255,.8);
-      padding: 1px 4px;
-      border-radius: 3px;
-      font-family: var(--mono);
+      font-size: .48rem; background: rgba(0,0,0,.5); color: rgba(255,255,255,.8);
+      padding: 1px 4px; border-radius: 3px; font-family: var(--mono);
     }
     .thumb .tdel {
       position: absolute; top: 2px; right: 2px;
-      font-size: .55rem;
-      background: rgba(200,40,40,.85);
-      color: #fff;
-      padding: 1px 5px;
-      border-radius: 3px;
-      cursor: pointer;
-      display: none;
+      font-size: .55rem; background: rgba(200,40,40,.85); color: #fff;
+      padding: 1px 5px; border-radius: 3px; cursor: pointer; display: none;
     }
     .thumb:hover .tdel { display: block; }
-
-    /* ── SETTINGS ── */
-    .settings-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    /* SETTINGS */
+    .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .field label {
-      display: block;
-      font-size: .68rem;
-      font-weight: 600;
-      color: var(--ink3);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      margin-bottom: 7px;
+      display: block; font-size: .68rem; font-weight: 600; color: var(--ink3);
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 7px;
     }
     .field select {
-      width: 100%;
-      background: var(--sand);
-      border: 1px solid var(--sand3);
-      color: var(--ink);
-      font-family: var(--font);
-      font-size: .82rem;
-      font-weight: 500;
-      padding: 9px 30px 9px 12px;
-      border-radius: 7px;
-      appearance: none;
-      cursor: pointer;
+      width: 100%; background: var(--sand); border: 1px solid var(--sand3);
+      color: var(--ink); font-family: var(--font); font-size: .82rem; font-weight: 500;
+      padding: 9px 30px 9px 12px; border-radius: 7px; appearance: none; cursor: pointer;
       transition: border-color .15s, box-shadow .15s;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a6f65'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
+      background-repeat: no-repeat; background-position: right 10px center;
     }
-    .field select:focus {
-      outline: none;
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(232,93,38,.12);
-    }
-
-    /* ── PREVIEW ── */
+    .field select:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(232,93,38,.12); }
+    /* PREVIEW */
     .preview-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      min-height: 260px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 24px;
-      overflow: hidden;
+      background: #fff; border: 1px solid var(--border); border-radius: var(--r);
+      box-shadow: 0 2px 16px rgba(26,22,18,.07);
+      min-height: 260px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center; padding: 24px; overflow: hidden;
     }
     .preview-empty .pe-icon { font-size: 2.4rem; margin-bottom: 10px; opacity: .25; display: block; }
-    .preview-empty p { font-size: .72rem; color: var(--ink4); }
+    .preview-empty p { font-size: .72rem; color: var(--ink4); line-height: 1.7; }
     .preview-gif { max-width: 100%; max-height: 380px; border-radius: 8px; display: block; }
-
-    /* ── BUTTONS ── */
+    /* BUTTONS */
     .btn {
-      font-family: var(--font);
-      font-size: .8rem;
-      font-weight: 700;
-      padding: 11px 22px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      transition: all .18s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      width: 100%;
+      font-family: var(--font); font-size: .8rem; font-weight: 700;
+      padding: 11px 22px; border-radius: 8px; border: none; cursor: pointer;
+      transition: all .18s; display: inline-flex; align-items: center;
+      justify-content: center; gap: 7px; width: 100%;
     }
-    .btn-orange {
-      background: var(--orange);
-      color: #fff;
-      box-shadow: 0 4px 14px rgba(232,93,38,.25);
-    }
-    .btn-orange:hover:not(:disabled) {
-      background: var(--orange2);
-      box-shadow: 0 6px 20px rgba(232,93,38,.35);
-      transform: translateY(-1px);
-    }
-    .btn-outline {
-      background: transparent;
-      color: var(--ink2);
-      border: 1.5px solid var(--sand3);
-    }
-    .btn-outline:hover:not(:disabled) {
-      border-color: var(--orange);
-      color: var(--orange);
-    }
-    .btn-ghost-red {
-      background: transparent;
-      color: var(--red);
-      border: 1.5px solid rgba(204,51,51,.2);
-    }
-    .btn-ghost-red:hover:not(:disabled) {
-      background: rgba(204,51,51,.05);
-    }
-    .btn:disabled { opacity: .38; cursor: not-allowed; transform: none !important; }
+    .btn-orange { background: var(--orange); color: #fff; box-shadow: 0 4px 14px rgba(232,93,38,.25); }
+    .btn-orange:hover:not(:disabled) { background: var(--orange2); box-shadow: 0 6px 20px rgba(232,93,38,.35); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--ink2); border: 1.5px solid var(--sand3); }
+    .btn-outline:hover:not(:disabled) { border-color: var(--orange); color: var(--orange); }
+    .btn-ghost-red { background: transparent; color: var(--red); border: 1.5px solid rgba(204,51,51,.2); }
+    .btn-ghost-red:hover:not(:disabled) { background: rgba(204,51,51,.05); }
+    .btn:disabled { opacity: .38; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
     .btn-group { display: flex; flex-direction: column; gap: 8px; }
-
-    /* ── PROGRESS ── */
+    /* PROGRESS */
     .progress-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding: 18px 20px;
-      display: none;
+      background: #fff; border: 1px solid var(--border); border-radius: var(--r);
+      box-shadow: 0 2px 16px rgba(26,22,18,.07);
+      padding: 18px 20px; display: none;
     }
-    .prog-track {
-      height: 6px;
-      background: var(--sand2);
-      border-radius: 3px;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
+    .prog-track { height: 6px; background: var(--sand2); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
     .prog-fill {
-      height: 100%;
-      width: 0%;
+      height: 100%; width: 0%;
       background: linear-gradient(90deg, var(--orange), var(--orange2));
-      border-radius: 3px;
-      transition: width .25s ease;
+      border-radius: 3px; transition: width .25s ease;
     }
-    .prog-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .prog-row { display: flex; justify-content: space-between; align-items: center; }
     .prog-lbl { font-size: .7rem; color: var(--ink3); }
     .prog-pct { font-size: .7rem; font-weight: 700; color: var(--orange); font-family: var(--mono); }
-
-    /* ── STATUS ── */
-    .status-msg {
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: .75rem;
-      font-weight: 500;
-      display: none;
-    }
-    .status-msg.ok  { background: rgba(45,138,82,.1); border: 1px solid rgba(45,138,82,.25); color: var(--green); }
-    .status-msg.err { background: rgba(204,51,51,.1); border: 1px solid rgba(204,51,51,.25); color: var(--red); }
-
-    /* ── STATS ── */
+    /* STATUS */
+    .status-msg { padding: 12px 16px; border-radius: 8px; font-size: .75rem; font-weight: 500; display: none; }
+    .status-msg.ok  { background: rgba(45,138,82,.1);  border: 1px solid rgba(45,138,82,.25);  color: var(--green); }
+    .status-msg.err { background: rgba(204,51,51,.1);  border: 1px solid rgba(204,51,51,.25);  color: var(--red); }
+    /* STATS */
     .stats-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding: 4px 0;
-      display: none;
+      background: #fff; border: 1px solid var(--border); border-radius: var(--r);
+      box-shadow: 0 2px 16px rgba(26,22,18,.07);
+      padding: 4px 0; display: none;
     }
-    .stat-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 18px;
-      border-bottom: 1px solid var(--border);
-    }
+    .stat-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid var(--border); }
     .stat-row:last-child { border-bottom: none; }
     .stat-key { font-size: .72rem; color: var(--ink3); }
-    .stat-val {
-      font-family: var(--mono);
-      font-size: .8rem;
-      font-weight: 500;
-      color: var(--orange);
-    }
-
-    /* ── FOOTER ── */
+    .stat-val { font-family: var(--mono); font-size: .8rem; font-weight: 500; color: var(--orange); }
+    /* FOOTER */
     footer {
       position: relative; z-index: 1;
       border-top: 1px solid var(--border);
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      max-width: 1000px; margin: 0 auto; padding: 20px 48px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .footer-note { font-size: .68rem; color: var(--ink4); }
-    .footer-by   { font-size: .68rem; color: var(--ink4); }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .footer-note, .footer-by { font-size: .68rem; color: var(--ink4); }
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes spin { to { transform: rotate(360deg); } }
     .fu { opacity: 0; animation: fadeUp .45s ease forwards; }
-    .fu:nth-child(1) { animation-delay: .05s; }
-    .fu:nth-child(2) { animation-delay: .12s; }
-    .fu:nth-child(3) { animation-delay: .19s; }
-    .fu:nth-child(4) { animation-delay: .26s; }
-    .fu:nth-child(5) { animation-delay: .33s; }
-    .spinner {
-      display: inline-block;
-      width: 13px; height: 13px;
-      border: 2px solid rgba(255,255,255,.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin .65s linear infinite;
-    }
-
-    /* ── RESPONSIVE ── */
+    .fu:nth-child(1){animation-delay:.05s} .fu:nth-child(2){animation-delay:.12s}
+    .fu:nth-child(3){animation-delay:.19s} .fu:nth-child(4){animation-delay:.26s}
+    .fu:nth-child(5){animation-delay:.33s}
+    .spinner { display: inline-block; width: 13px; height: 13px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .65s linear infinite; }
+    /* RESPONSIVE */
     @media (max-width: 780px) {
       nav, .hero, footer { padding-left: 20px; padding-right: 20px; }
       .hero { padding-top: 48px; padding-bottom: 36px; }
       .app { grid-template-columns: 1fr; padding: 0 20px 60px; gap: 14px; }
       .col-side { order: 2; }
-      .settings-grid { grid-template-columns: 1fr 1fr; }
       .hero-title { font-size: 2.4rem; }
     }
-    @media (max-width: 440px) {
-      .settings-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 440px) { .settings-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -505,19 +270,13 @@
   <section class="hero">
     <div class="hero-badge">Live in browser</div>
     <h1 class="hero-title">Images in.<br><u>GIF out.</u></h1>
-    <p class="hero-desc">Drop your photos or screenshots, pick a speed, and get an animated GIF — processed entirely on your device. No servers, no account, no waiting.</p>
+    <p class="hero-desc">Drop your photos or screenshots, pick a speed, and get a real animated GIF — processed entirely on your device. No servers, no account.</p>
   </section>
 
   <div class="app">
-    <!-- LEFT COLUMN -->
     <div class="col-main">
-
-      <!-- UPLOAD -->
       <div class="card fu">
-        <div class="card-head">
-          <span class="card-num">1</span>
-          <span class="card-title">Add your frames</span>
-        </div>
+        <div class="card-head"><span class="card-num">1</span><span class="card-title">Add your frames</span></div>
         <div class="card-body">
           <div class="drop-zone" id="dropZone">
             <span class="dz-icon">🖼️</span>
@@ -535,12 +294,8 @@
         </div>
       </div>
 
-      <!-- SETTINGS -->
       <div class="card fu">
-        <div class="card-head">
-          <span class="card-num">2</span>
-          <span class="card-title">Configure your GIF</span>
-        </div>
+        <div class="card-head"><span class="card-num">2</span><span class="card-title">Configure your GIF</span></div>
         <div class="card-body">
           <div class="settings-grid">
             <div class="field">
@@ -560,7 +315,7 @@
                 <option value="1">Maximum</option>
                 <option value="5">High</option>
                 <option value="10" selected>Balanced</option>
-                <option value="20">Low (smaller file)</option>
+                <option value="20">Low (smaller)</option>
               </select>
             </div>
             <div class="field">
@@ -586,72 +341,42 @@
         </div>
       </div>
 
-      <!-- PROGRESS -->
       <div class="progress-card fu" id="progressCard">
         <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
         <div class="prog-row">
-          <span class="prog-lbl" id="progLabel">Starting…</span>
+          <span class="prog-lbl" id="progLabel">Starting&#8230;</span>
           <span class="prog-pct" id="progPct">0%</span>
         </div>
       </div>
 
-      <!-- STATUS -->
       <div class="status-msg fu" id="statusMsg"></div>
-
     </div>
 
-    <!-- RIGHT COLUMN -->
     <div class="col-side">
-
-      <!-- ACTIONS -->
       <div class="card fu">
-        <div class="card-head">
-          <span class="card-num">3</span>
-          <span class="card-title">Create &amp; Export</span>
-        </div>
+        <div class="card-head"><span class="card-num">3</span><span class="card-title">Create &amp; Export</span></div>
         <div class="card-body">
           <div class="btn-group">
-            <button class="btn btn-orange" id="createBtn" disabled>
-              <span id="createLabel">Generate GIF</span>
-            </button>
-            <button class="btn btn-outline" id="downloadBtn" style="display:none">
-              ↓ &nbsp;Download GIF
-            </button>
-            <button class="btn btn-ghost-red" id="clearBtn" style="display:none">
-              ✕ &nbsp;Clear All
-            </button>
+            <button class="btn btn-orange" id="createBtn" disabled><span id="createLabel">Generate GIF</span></button>
+            <button class="btn btn-outline" id="downloadBtn" style="display:none">&#8595;&nbsp; Download GIF</button>
+            <button class="btn btn-ghost-red" id="clearBtn" style="display:none">&#10005;&nbsp; Clear All</button>
           </div>
         </div>
       </div>
 
-      <!-- STATS -->
       <div class="stats-card fu" id="statsCard">
-        <div class="stat-row">
-          <span class="stat-key">Frames</span>
-          <span class="stat-val" id="sFrames">—</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-key">File Size</span>
-          <span class="stat-val" id="sSize">—</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-key">Duration</span>
-          <span class="stat-val" id="sDuration">—</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-key">Dimensions</span>
-          <span class="stat-val" id="sDims">—</span>
-        </div>
+        <div class="stat-row"><span class="stat-key">Frames</span><span class="stat-val" id="sFrames">&#8212;</span></div>
+        <div class="stat-row"><span class="stat-key">File Size</span><span class="stat-val" id="sSize">&#8212;</span></div>
+        <div class="stat-row"><span class="stat-key">Duration</span><span class="stat-val" id="sDuration">&#8212;</span></div>
+        <div class="stat-row"><span class="stat-key">Dimensions</span><span class="stat-val" id="sDims">&#8212;</span></div>
       </div>
 
-      <!-- PREVIEW -->
       <div class="preview-card fu" id="previewCard">
         <div class="preview-empty" id="previewEmpty">
-          <span class="pe-icon">🎞️</span>
+          <span class="pe-icon">&#127902;&#65039;</span>
           <p>Your GIF preview<br>will appear here</p>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -661,298 +386,23 @@
   </footer>
 
   <script>
+  // ── Inline gif.js (no CDN needed) ──────────────────────────
+  // gif.js 0.2.0 - https://github.com/jnordberg/gif.js
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.GIF=f()}})(function(){var define,module,exports;return function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}({1:[function(require,module,exports){function EventEmitter(){this._events=this._events||{};this._maxListeners=this._maxListeners||undefined}module.exports=EventEmitter;EventEmitter.EventEmitter=EventEmitter;EventEmitter.prototype._events=undefined;EventEmitter.prototype._maxListeners=undefined;EventEmitter.defaultMaxListeners=10;EventEmitter.prototype.setMaxListeners=function(n){if(!isNumber(n)||n<0||isNaN(n))throw TypeError("n must be a positive number");this._maxListeners=n;return this};EventEmitter.prototype.emit=function(type){var er,handler,len,args,i,listeners;if(!this._events)this._events={};if(type==="error"){if(!this._events.error||isObject(this._events.error)&&!this._events.error.length){er=arguments[1];if(er instanceof Error){throw er}else{var err=new Error('Uncaught, unspecified "error" event. ('+er+")");err.context=er;throw err}}}handler=this._events[type];if(isUndefined(handler))return false;if(isFunction(handler)){switch(arguments.length){case 1:handler.call(this);break;case 2:handler.call(this,arguments[1]);break;case 3:handler.call(this,arguments[1],arguments[2]);break;default:args=Array.prototype.slice.call(arguments,1);handler.apply(this,args)}}else if(isObject(handler)){args=Array.prototype.slice.call(arguments,1);listeners=handler.slice();len=listeners.length;for(i=0;i<len;i++)listeners[i].apply(this,args)}return true};EventEmitter.prototype.addListener=function(type,listener){var m;if(!isFunction(listener))throw TypeError("listener must be a function");if(!this._events)this._events={};if(this._events.newListener)this.emit("newListener",type,isFunction(listener.listener)?listener.listener:listener);if(!this._events[type])this._events[type]=listener;else if(isObject(this._events[type]))this._events[type].push(listener);else this._events[type]=[this._events[type],listener];if(isObject(this._events[type])&&!this._events[type].warned){if(!isUndefined(this._maxListeners)){m=this._maxListeners}else{m=EventEmitter.defaultMaxListeners}if(m&&m>0&&this._events[type].length>m){this._events[type].warned=true;console.error("(node) warning: possible EventEmitter memory "+"leak detected. %d listeners added. "+"Use emitter.setMaxListeners() to increase limit.",this._events[type].length);if(typeof console.trace==="function"){console.trace()}}}return this};EventEmitter.prototype.on=EventEmitter.prototype.addListener;EventEmitter.prototype.once=function(type,listener){if(!isFunction(listener))throw TypeError("listener must be a function");var fired=false;function g(){this.removeListener(type,g);if(!fired){fired=true;listener.apply(this,arguments)}}g.listener=listener;this.on(type,g);return this};EventEmitter.prototype.removeListener=function(type,listener){var list,position,length,i;if(!isFunction(listener))throw TypeError("listener must be a function");if(!this._events||!this._events[type])return this;list=this._events[type];length=list.length;position=-1;if(list===listener||isFunction(list.listener)&&list.listener===listener){delete this._events[type];if(this._events.removeListener)this.emit("removeListener",type,listener)}else if(isObject(list)){for(i=length;i-- >0;){if(list[i]===listener||list[i].listener&&list[i].listener===listener){position=i;break}}if(position<0)return this;if(list.length===1){list.length=0;delete this._events[type]}else{list.splice(position,1)}if(this._events.removeListener)this.emit("removeListener",type,listener)}return this};EventEmitter.prototype.removeAllListeners=function(type){var key,listeners;if(!this._events)return this;if(!this._events.removeListener){if(arguments.length===0)this._events={};else if(this._events[type])delete this._events[type];return this}if(arguments.length===0){for(key in this._events){if(key==="removeListener")continue;this.removeAllListeners(key)}this.removeAllListeners("removeListener");this._events={};return this}listeners=this._events[type];if(isFunction(listeners)){this.removeListener(type,listeners)}else if(listeners){while(listeners.length)this.removeListener(type,listeners[listeners.length-1])}delete this._events[type];return this};EventEmitter.prototype.listeners=function(type){var ret;if(!this._events||!this._events[type])ret=[];else if(isFunction(this._events[type]))ret=[this._events[type]];else ret=this._events[type].slice();return ret};EventEmitter.prototype.listenerCount=function(type){if(this._events){var evlistener=this._events[type];if(isFunction(evlistener))return 1;else if(evlistener)return evlistener.length}return 0};EventEmitter.listenerCount=function(emitter,type){return emitter.listenerCount(type)};function isFunction(arg){return typeof arg==="function"}function isNumber(arg){return typeof arg==="number"}function isObject(arg){return typeof arg==="object"&&arg!==null}function isUndefined(arg){return arg===void 0}},{}],2:[function(require,module,exports){var UA,browser,mode,platform,ua;ua=navigator.userAgent.toLowerCase();platform=navigator.platform.toLowerCase();UA=ua.match(/(opera|ie|firefox|chrome|version)[\s\/:]([\w\d\.]+)?.*?(safari|version[\s\/:]([\w\d\.]+)|$)/)||[null,"unknown",0];mode=UA[1]==="ie"&&document.documentMode;browser={name:UA[1]==="version"?UA[3]:UA[1],version:mode||parseFloat(UA[1]==="opera"&&UA[4]?UA[4]:UA[2]),platform:{name:ua.match(/ip(?:ad|od|hone)/)?"ios":(ua.match(/(?:webos|android)/)||platform.match(/mac|win|linux/)||["other"])[0]}};browser[browser.name]=true;browser[browser.name+parseInt(browser.version,10)]=true;browser.platform[browser.platform.name]=true;module.exports=browser},{}],3:[function(require,module,exports){var EventEmitter,GIF,browser,extend=function(child,parent){for(var key in parent){if(hasProp.call(parent,key))child[key]=parent[key]}function ctor(){this.constructor=child}ctor.prototype=parent.prototype;child.prototype=new ctor;child.__super__=parent.prototype;return child},hasProp={}.hasOwnProperty,indexOf=[].indexOf||function(item){for(var i=0,l=this.length;i<l;i++){if(i in this&&this[i]===item)return i}return-1},slice=[].slice;EventEmitter=require("events").EventEmitter;browser=require("./browser.coffee");GIF=function(superClass){var defaults,frameDefaults;extend(GIF,superClass);defaults={workerScript:"gif.worker.js",workers:2,repeat:0,background:"#fff",quality:10,width:null,height:null,transparent:null,debug:false,dither:false};frameDefaults={delay:500,copy:false};function GIF(options){var base,key,value;this.running=false;this.options={};this.frames=[];this.freeWorkers=[];this.activeWorkers=[];this.setOptions(options);for(key in defaults){value=defaults[key];if((base=this.options)[key]==null){base[key]=value}}}GIF.prototype.setOption=function(key,value){this.options[key]=value;if(this._canvas!=null&&(key==="width"||key==="height")){return this._canvas[key]=value}};GIF.prototype.setOptions=function(options){var key,results,value;results=[];for(key in options){if(!hasProp.call(options,key))continue;value=options[key];results.push(this.setOption(key,value))}return results};GIF.prototype.addFrame=function(image,options){var frame,key;if(options==null){options={}}frame={};frame.transparent=this.options.transparent;for(key in frameDefaults){frame[key]=options[key]||frameDefaults[key]}if(this.options.width==null){this.setOption("width",image.width)}if(this.options.height==null){this.setOption("height",image.height)}if(typeof ImageData!=="undefined"&&ImageData!==null&&image instanceof ImageData){frame.data=image.data}else if(typeof CanvasRenderingContext2D!=="undefined"&&CanvasRenderingContext2D!==null&&image instanceof CanvasRenderingContext2D||typeof WebGLRenderingContext!=="undefined"&&WebGLRenderingContext!==null&&image instanceof WebGLRenderingContext){if(options.copy){frame.data=this.getContextData(image)}else{frame.context=image}}else if(image.childNodes!=null){if(options.copy){frame.data=this.getImageData(image)}else{frame.image=image}}else{throw new Error("Invalid image")}return this.frames.push(frame)};GIF.prototype.render=function(){var i,j,numWorkers,ref;if(this.running){throw new Error("Already running")}if(this.options.width==null||this.options.height==null){throw new Error("Width and height must be set prior to rendering")}this.running=true;this.nextFrame=0;this.finishedFrames=0;this.imageParts=function(){var j,ref,results;results=[];for(i=j=0,ref=this.frames.length;0<=ref?j<ref:j>ref;i=0<=ref?++j:--j){results.push(null)}return results}.call(this);numWorkers=this.spawnWorkers();if(this.options.globalPalette===true){this.renderNextFrame()}else{for(i=j=0,ref=numWorkers;0<=ref?j<ref:j>ref;i=0<=ref?++j:--j){this.renderNextFrame()}}this.emit("start");return this.emit("progress",0)};GIF.prototype.abort=function(){var worker;while(true){worker=this.activeWorkers.shift();if(worker==null){break}this.log("killing active worker");worker.terminate()}this.running=false;return this.emit("abort")};GIF.prototype.spawnWorkers=function(){var j,numWorkers,ref,results;numWorkers=Math.min(this.options.workers,this.frames.length);(function(){results=[];for(var j=ref=this.freeWorkers.length;ref<=numWorkers?j<numWorkers:j>numWorkers;ref<=numWorkers?j++:j--){results.push(j)}return results}).apply(this).forEach(function(_this){return function(i){var worker;_this.log("spawning worker "+i);worker=new Worker(_this.options.workerScript);worker.onmessage=function(event){_this.activeWorkers.splice(_this.activeWorkers.indexOf(worker),1);_this.freeWorkers.push(worker);return _this.frameFinished(event.data)};return _this.freeWorkers.push(worker)}}(this));return numWorkers};GIF.prototype.frameFinished=function(frame){var i,j,ref;this.log("frame "+frame.index+" finished - "+this.activeWorkers.length+" active");this.finishedFrames++;this.emit("progress",this.finishedFrames/this.frames.length);this.imageParts[frame.index]=frame;if(this.options.globalPalette===true){this.options.globalPalette=frame.globalPalette;this.log("global palette analyzed");if(this.frames.length>2){for(i=j=1,ref=this.freeWorkers.length;1<=ref?j<ref:j>ref;i=1<=ref?++j:--j){this.renderNextFrame()}}}if(indexOf.call(this.imageParts,null)>=0){return this.renderNextFrame()}else{return this.finishRendering()}};GIF.prototype.finishRendering=function(){var data,frame,i,image,j,k,l,len,len1,len2,len3,offset,page,ref,ref1,ref2;len=0;ref=this.imageParts;for(j=0,len1=ref.length;j<len1;j++){frame=ref[j];len+=(frame.data.length-1)*frame.pageSize+frame.cursor}len+=frame.pageSize-frame.cursor;this.log("rendering finished - filesize "+Math.round(len/1e3)+"kb");data=new Uint8Array(len);offset=0;ref1=this.imageParts;for(k=0,len2=ref1.length;k<len2;k++){frame=ref1[k];ref2=frame.data;for(i=l=0,len3=ref2.length;l<len3;i=++l){page=ref2[i];data.set(page,offset);if(i===frame.data.length-1){offset+=frame.cursor}else{offset+=frame.pageSize}}}image=new Blob([data],{type:"image/gif"});return this.emit("finished",image,data)};GIF.prototype.renderNextFrame=function(){var frame,task,worker;if(this.freeWorkers.length===0){throw new Error("No free workers")}if(this.nextFrame>=this.frames.length){return}frame=this.frames[this.nextFrame++];worker=this.freeWorkers.shift();task=this.getTask(frame);this.log("starting frame "+(task.index+1)+" of "+this.frames.length);this.activeWorkers.push(worker);return worker.postMessage(task)};GIF.prototype.getContextData=function(ctx){return ctx.getImageData(0,0,this.options.width,this.options.height).data};GIF.prototype.getImageData=function(image){var ctx;if(this._canvas==null){this._canvas=document.createElement("canvas");this._canvas.width=this.options.width;this._canvas.height=this.options.height}ctx=this._canvas.getContext("2d");ctx.setFill=this.options.background;ctx.fillRect(0,0,this.options.width,this.options.height);ctx.drawImage(image,0,0);return this.getContextData(ctx)};GIF.prototype.getTask=function(frame){var index,task;index=this.frames.indexOf(frame);task={index:index,last:index===this.frames.length-1,delay:frame.delay,transparent:frame.transparent,width:this.options.width,height:this.options.height,quality:this.options.quality,dither:this.options.dither,globalPalette:this.options.globalPalette,repeat:this.options.repeat,canTransfer:browser.name==="chrome"};if(frame.data!=null){task.data=frame.data}else if(frame.context!=null){task.data=this.getContextData(frame.context)}else if(frame.image!=null){task.data=this.getImageData(frame.image)}else{throw new Error("Invalid frame")}return task};GIF.prototype.log=function(){var args;args=1<=arguments.length?slice.call(arguments,0):[];if(!this.options.debug){return}return console.log.apply(console,args)};return GIF}(EventEmitter);module.exports=GIF},{"./browser.coffee":2,events:1}]},{},[3])(3)});
+//# sourceMappingURL=gif.js.map
+
+  // ── Inline gif.worker.js as Blob URL (fixes CORS on Vercel) ─
+  (function() {
+    var workerSrc = "// gif.worker.js 0.2.0 - https://github.com/jnordberg/gif.js\n(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\"function\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\"Cannot find module '\"+o+\"'\");throw f.code=\"MODULE_NOT_FOUND\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\"function\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){var NeuQuant=require(\"./TypedNeuQuant.js\");var LZWEncoder=require(\"./LZWEncoder.js\");function ByteArray(){this.page=-1;this.pages=[];this.newPage()}ByteArray.pageSize=4096;ByteArray.charMap={};for(var i=0;i<256;i++)ByteArray.charMap[i]=String.fromCharCode(i);ByteArray.prototype.newPage=function(){this.pages[++this.page]=new Uint8Array(ByteArray.pageSize);this.cursor=0};ByteArray.prototype.getData=function(){var rv=\"\";for(var p=0;p<this.pages.length;p++){for(var i=0;i<ByteArray.pageSize;i++){rv+=ByteArray.charMap[this.pages[p][i]]}}return rv};ByteArray.prototype.writeByte=function(val){if(this.cursor>=ByteArray.pageSize)this.newPage();this.pages[this.page][this.cursor++]=val};ByteArray.prototype.writeUTFBytes=function(string){for(var l=string.length,i=0;i<l;i++)this.writeByte(string.charCodeAt(i))};ByteArray.prototype.writeBytes=function(array,offset,length){for(var l=length||array.length,i=offset||0;i<l;i++)this.writeByte(array[i])};function GIFEncoder(width,height){this.width=~~width;this.height=~~height;this.transparent=null;this.transIndex=0;this.repeat=-1;this.delay=0;this.image=null;this.pixels=null;this.indexedPixels=null;this.colorDepth=null;this.colorTab=null;this.neuQuant=null;this.usedEntry=new Array;this.palSize=7;this.dispose=-1;this.firstFrame=true;this.sample=10;this.dither=false;this.globalPalette=false;this.out=new ByteArray}GIFEncoder.prototype.setDelay=function(milliseconds){this.delay=Math.round(milliseconds/10)};GIFEncoder.prototype.setFrameRate=function(fps){this.delay=Math.round(100/fps)};GIFEncoder.prototype.setDispose=function(disposalCode){if(disposalCode>=0)this.dispose=disposalCode};GIFEncoder.prototype.setRepeat=function(repeat){this.repeat=repeat};GIFEncoder.prototype.setTransparent=function(color){this.transparent=color};GIFEncoder.prototype.addFrame=function(imageData){this.image=imageData;this.colorTab=this.globalPalette&&this.globalPalette.slice?this.globalPalette:null;this.getImagePixels();this.analyzePixels();if(this.globalPalette===true)this.globalPalette=this.colorTab;if(this.firstFrame){this.writeLSD();this.writePalette();if(this.repeat>=0){this.writeNetscapeExt()}}this.writeGraphicCtrlExt();this.writeImageDesc();if(!this.firstFrame&&!this.globalPalette)this.writePalette();this.writePixels();this.firstFrame=false};GIFEncoder.prototype.finish=function(){this.out.writeByte(59)};GIFEncoder.prototype.setQuality=function(quality){if(quality<1)quality=1;this.sample=quality};GIFEncoder.prototype.setDither=function(dither){if(dither===true)dither=\"FloydSteinberg\";this.dither=dither};GIFEncoder.prototype.setGlobalPalette=function(palette){this.globalPalette=palette};GIFEncoder.prototype.getGlobalPalette=function(){return this.globalPalette&&this.globalPalette.slice&&this.globalPalette.slice(0)||this.globalPalette};GIFEncoder.prototype.writeHeader=function(){this.out.writeUTFBytes(\"GIF89a\")};GIFEncoder.prototype.analyzePixels=function(){if(!this.colorTab){this.neuQuant=new NeuQuant(this.pixels,this.sample);this.neuQuant.buildColormap();this.colorTab=this.neuQuant.getColormap()}if(this.dither){this.ditherPixels(this.dither.replace(\"-serpentine\",\"\"),this.dither.match(/-serpentine/)!==null)}else{this.indexPixels()}this.pixels=null;this.colorDepth=8;this.palSize=7;if(this.transparent!==null){this.transIndex=this.findClosest(this.transparent,true)}};GIFEncoder.prototype.indexPixels=function(imgq){var nPix=this.pixels.length/3;this.indexedPixels=new Uint8Array(nPix);var k=0;for(var j=0;j<nPix;j++){var index=this.findClosestRGB(this.pixels[k++]&255,this.pixels[k++]&255,this.pixels[k++]&255);this.usedEntry[index]=true;this.indexedPixels[j]=index}};GIFEncoder.prototype.ditherPixels=function(kernel,serpentine){var kernels={FalseFloydSteinberg:[[3/8,1,0],[3/8,0,1],[2/8,1,1]],FloydSteinberg:[[7/16,1,0],[3/16,-1,1],[5/16,0,1],[1/16,1,1]],Stucki:[[8/42,1,0],[4/42,2,0],[2/42,-2,1],[4/42,-1,1],[8/42,0,1],[4/42,1,1],[2/42,2,1],[1/42,-2,2],[2/42,-1,2],[4/42,0,2],[2/42,1,2],[1/42,2,2]],Atkinson:[[1/8,1,0],[1/8,2,0],[1/8,-1,1],[1/8,0,1],[1/8,1,1],[1/8,0,2]]};if(!kernel||!kernels[kernel]){throw\"Unknown dithering kernel: \"+kernel}var ds=kernels[kernel];var index=0,height=this.height,width=this.width,data=this.pixels;var direction=serpentine?-1:1;this.indexedPixels=new Uint8Array(this.pixels.length/3);for(var y=0;y<height;y++){if(serpentine)direction=direction*-1;for(var x=direction==1?0:width-1,xend=direction==1?width:0;x!==xend;x+=direction){index=y*width+x;var idx=index*3;var r1=data[idx];var g1=data[idx+1];var b1=data[idx+2];idx=this.findClosestRGB(r1,g1,b1);this.usedEntry[idx]=true;this.indexedPixels[index]=idx;idx*=3;var r2=this.colorTab[idx];var g2=this.colorTab[idx+1];var b2=this.colorTab[idx+2];var er=r1-r2;var eg=g1-g2;var eb=b1-b2;for(var i=direction==1?0:ds.length-1,end=direction==1?ds.length:0;i!==end;i+=direction){var x1=ds[i][1];var y1=ds[i][2];if(x1+x>=0&&x1+x<width&&y1+y>=0&&y1+y<height){var d=ds[i][0];idx=index+x1+y1*width;idx*=3;data[idx]=Math.max(0,Math.min(255,data[idx]+er*d));data[idx+1]=Math.max(0,Math.min(255,data[idx+1]+eg*d));data[idx+2]=Math.max(0,Math.min(255,data[idx+2]+eb*d))}}}}};GIFEncoder.prototype.findClosest=function(c,used){return this.findClosestRGB((c&16711680)>>16,(c&65280)>>8,c&255,used)};GIFEncoder.prototype.findClosestRGB=function(r,g,b,used){if(this.colorTab===null)return-1;if(this.neuQuant&&!used){return this.neuQuant.lookupRGB(r,g,b)}var c=b|g<<8|r<<16;var minpos=0;var dmin=256*256*256;var len=this.colorTab.length;for(var i=0,index=0;i<len;index++){var dr=r-(this.colorTab[i++]&255);var dg=g-(this.colorTab[i++]&255);var db=b-(this.colorTab[i++]&255);var d=dr*dr+dg*dg+db*db;if((!used||this.usedEntry[index])&&d<dmin){dmin=d;minpos=index}}return minpos};GIFEncoder.prototype.getImagePixels=function(){var w=this.width;var h=this.height;this.pixels=new Uint8Array(w*h*3);var data=this.image;var srcPos=0;var count=0;for(var i=0;i<h;i++){for(var j=0;j<w;j++){this.pixels[count++]=data[srcPos++];this.pixels[count++]=data[srcPos++];this.pixels[count++]=data[srcPos++];srcPos++}}};GIFEncoder.prototype.writeGraphicCtrlExt=function(){this.out.writeByte(33);this.out.writeByte(249);this.out.writeByte(4);var transp,disp;if(this.transparent===null){transp=0;disp=0}else{transp=1;disp=2}if(this.dispose>=0){disp=dispose&7}disp<<=2;this.out.writeByte(0|disp|0|transp);this.writeShort(this.delay);this.out.writeByte(this.transIndex);this.out.writeByte(0)};GIFEncoder.prototype.writeImageDesc=function(){this.out.writeByte(44);this.writeShort(0);this.writeShort(0);this.writeShort(this.width);this.writeShort(this.height);if(this.firstFrame||this.globalPalette){this.out.writeByte(0)}else{this.out.writeByte(128|0|0|0|this.palSize)}};GIFEncoder.prototype.writeLSD=function(){this.writeShort(this.width);this.writeShort(this.height);this.out.writeByte(128|112|0|this.palSize);this.out.writeByte(0);this.out.writeByte(0)};GIFEncoder.prototype.writeNetscapeExt=function(){this.out.writeByte(33);this.out.writeByte(255);this.out.writeByte(11);this.out.writeUTFBytes(\"NETSCAPE2.0\");this.out.writeByte(3);this.out.writeByte(1);this.writeShort(this.repeat);this.out.writeByte(0)};GIFEncoder.prototype.writePalette=function(){this.out.writeBytes(this.colorTab);var n=3*256-this.colorTab.length;for(var i=0;i<n;i++)this.out.writeByte(0)};GIFEncoder.prototype.writeShort=function(pValue){this.out.writeByte(pValue&255);this.out.writeByte(pValue>>8&255)};GIFEncoder.prototype.writePixels=function(){var enc=new LZWEncoder(this.width,this.height,this.indexedPixels,this.colorDepth);enc.encode(this.out)};GIFEncoder.prototype.stream=function(){return this.out};module.exports=GIFEncoder},{\"./LZWEncoder.js\":2,\"./TypedNeuQuant.js\":3}],2:[function(require,module,exports){var EOF=-1;var BITS=12;var HSIZE=5003;var masks=[0,1,3,7,15,31,63,127,255,511,1023,2047,4095,8191,16383,32767,65535];function LZWEncoder(width,height,pixels,colorDepth){var initCodeSize=Math.max(2,colorDepth);var accum=new Uint8Array(256);var htab=new Int32Array(HSIZE);var codetab=new Int32Array(HSIZE);var cur_accum,cur_bits=0;var a_count;var free_ent=0;var maxcode;var clear_flg=false;var g_init_bits,ClearCode,EOFCode;function char_out(c,outs){accum[a_count++]=c;if(a_count>=254)flush_char(outs)}function cl_block(outs){cl_hash(HSIZE);free_ent=ClearCode+2;clear_flg=true;output(ClearCode,outs)}function cl_hash(hsize){for(var i=0;i<hsize;++i)htab[i]=-1}function compress(init_bits,outs){var fcode,c,i,ent,disp,hsize_reg,hshift;g_init_bits=init_bits;clear_flg=false;n_bits=g_init_bits;maxcode=MAXCODE(n_bits);ClearCode=1<<init_bits-1;EOFCode=ClearCode+1;free_ent=ClearCode+2;a_count=0;ent=nextPixel();hshift=0;for(fcode=HSIZE;fcode<65536;fcode*=2)++hshift;hshift=8-hshift;hsize_reg=HSIZE;cl_hash(hsize_reg);output(ClearCode,outs);outer_loop:while((c=nextPixel())!=EOF){fcode=(c<<BITS)+ent;i=c<<hshift^ent;if(htab[i]===fcode){ent=codetab[i];continue}else if(htab[i]>=0){disp=hsize_reg-i;if(i===0)disp=1;do{if((i-=disp)<0)i+=hsize_reg;if(htab[i]===fcode){ent=codetab[i];continue outer_loop}}while(htab[i]>=0)}output(ent,outs);ent=c;if(free_ent<1<<BITS){codetab[i]=free_ent++;htab[i]=fcode}else{cl_block(outs)}}output(ent,outs);output(EOFCode,outs)}function encode(outs){outs.writeByte(initCodeSize);remaining=width*height;curPixel=0;compress(initCodeSize+1,outs);outs.writeByte(0)}function flush_char(outs){if(a_count>0){outs.writeByte(a_count);outs.writeBytes(accum,0,a_count);a_count=0}}function MAXCODE(n_bits){return(1<<n_bits)-1}function nextPixel(){if(remaining===0)return EOF;--remaining;var pix=pixels[curPixel++];return pix&255}function output(code,outs){cur_accum&=masks[cur_bits];if(cur_bits>0)cur_accum|=code<<cur_bits;else cur_accum=code;cur_bits+=n_bits;while(cur_bits>=8){char_out(cur_accum&255,outs);cur_accum>>=8;cur_bits-=8}if(free_ent>maxcode||clear_flg){if(clear_flg){maxcode=MAXCODE(n_bits=g_init_bits);clear_flg=false}else{++n_bits;if(n_bits==BITS)maxcode=1<<BITS;else maxcode=MAXCODE(n_bits)}}if(code==EOFCode){while(cur_bits>0){char_out(cur_accum&255,outs);cur_accum>>=8;cur_bits-=8}flush_char(outs)}}this.encode=encode}module.exports=LZWEncoder},{}],3:[function(require,module,exports){var ncycles=100;var netsize=256;var maxnetpos=netsize-1;var netbiasshift=4;var intbiasshift=16;var intbias=1<<intbiasshift;var gammashift=10;var gamma=1<<gammashift;var betashift=10;var beta=intbias>>betashift;var betagamma=intbias<<gammashift-betashift;var initrad=netsize>>3;var radiusbiasshift=6;var radiusbias=1<<radiusbiasshift;var initradius=initrad*radiusbias;var radiusdec=30;var alphabiasshift=10;var initalpha=1<<alphabiasshift;var alphadec;var radbiasshift=8;var radbias=1<<radbiasshift;var alpharadbshift=alphabiasshift+radbiasshift;var alpharadbias=1<<alpharadbshift;var prime1=499;var prime2=491;var prime3=487;var prime4=503;var minpicturebytes=3*prime4;function NeuQuant(pixels,samplefac){var network;var netindex;var bias;var freq;var radpower;function init(){network=[];netindex=new Int32Array(256);bias=new Int32Array(netsize);freq=new Int32Array(netsize);radpower=new Int32Array(netsize>>3);var i,v;for(i=0;i<netsize;i++){v=(i<<netbiasshift+8)/netsize;network[i]=new Float64Array([v,v,v,0]);freq[i]=intbias/netsize;bias[i]=0}}function unbiasnet(){for(var i=0;i<netsize;i++){network[i][0]>>=netbiasshift;network[i][1]>>=netbiasshift;network[i][2]>>=netbiasshift;network[i][3]=i}}function altersingle(alpha,i,b,g,r){network[i][0]-=alpha*(network[i][0]-b)/initalpha;network[i][1]-=alpha*(network[i][1]-g)/initalpha;network[i][2]-=alpha*(network[i][2]-r)/initalpha}function alterneigh(radius,i,b,g,r){var lo=Math.abs(i-radius);var hi=Math.min(i+radius,netsize);var j=i+1;var k=i-1;var m=1;var p,a;while(j<hi||k>lo){a=radpower[m++];if(j<hi){p=network[j++];p[0]-=a*(p[0]-b)/alpharadbias;p[1]-=a*(p[1]-g)/alpharadbias;p[2]-=a*(p[2]-r)/alpharadbias}if(k>lo){p=network[k--];p[0]-=a*(p[0]-b)/alpharadbias;p[1]-=a*(p[1]-g)/alpharadbias;p[2]-=a*(p[2]-r)/alpharadbias}}}function contest(b,g,r){var bestd=~(1<<31);var bestbiasd=bestd;var bestpos=-1;var bestbiaspos=bestpos;var i,n,dist,biasdist,betafreq;for(i=0;i<netsize;i++){n=network[i];dist=Math.abs(n[0]-b)+Math.abs(n[1]-g)+Math.abs(n[2]-r);if(dist<bestd){bestd=dist;bestpos=i}biasdist=dist-(bias[i]>>intbiasshift-netbiasshift);if(biasdist<bestbiasd){bestbiasd=biasdist;bestbiaspos=i}betafreq=freq[i]>>betashift;freq[i]-=betafreq;bias[i]+=betafreq<<gammashift}freq[bestpos]+=beta;bias[bestpos]-=betagamma;return bestbiaspos}function inxbuild(){var i,j,p,q,smallpos,smallval,previouscol=0,startpos=0;for(i=0;i<netsize;i++){p=network[i];smallpos=i;smallval=p[1];for(j=i+1;j<netsize;j++){q=network[j];if(q[1]<smallval){smallpos=j;smallval=q[1]}}q=network[smallpos];if(i!=smallpos){j=q[0];q[0]=p[0];p[0]=j;j=q[1];q[1]=p[1];p[1]=j;j=q[2];q[2]=p[2];p[2]=j;j=q[3];q[3]=p[3];p[3]=j}if(smallval!=previouscol){netindex[previouscol]=startpos+i>>1;for(j=previouscol+1;j<smallval;j++)netindex[j]=i;previouscol=smallval;startpos=i}}netindex[previouscol]=startpos+maxnetpos>>1;for(j=previouscol+1;j<256;j++)netindex[j]=maxnetpos}function inxsearch(b,g,r){var a,p,dist;var bestd=1e3;var best=-1;var i=netindex[g];var j=i-1;while(i<netsize||j>=0){if(i<netsize){p=network[i];dist=p[1]-g;if(dist>=bestd)i=netsize;else{i++;if(dist<0)dist=-dist;a=p[0]-b;if(a<0)a=-a;dist+=a;if(dist<bestd){a=p[2]-r;if(a<0)a=-a;dist+=a;if(dist<bestd){bestd=dist;best=p[3]}}}}if(j>=0){p=network[j];dist=g-p[1];if(dist>=bestd)j=-1;else{j--;if(dist<0)dist=-dist;a=p[0]-b;if(a<0)a=-a;dist+=a;if(dist<bestd){a=p[2]-r;if(a<0)a=-a;dist+=a;if(dist<bestd){bestd=dist;best=p[3]}}}}}return best}function learn(){var i;var lengthcount=pixels.length;var alphadec=30+(samplefac-1)/3;var samplepixels=lengthcount/(3*samplefac);var delta=~~(samplepixels/ncycles);var alpha=initalpha;var radius=initradius;var rad=radius>>radiusbiasshift;if(rad<=1)rad=0;for(i=0;i<rad;i++)radpower[i]=alpha*((rad*rad-i*i)*radbias/(rad*rad));var step;if(lengthcount<minpicturebytes){samplefac=1;step=3}else if(lengthcount%prime1!==0){step=3*prime1}else if(lengthcount%prime2!==0){step=3*prime2}else if(lengthcount%prime3!==0){step=3*prime3}else{step=3*prime4}var b,g,r,j;var pix=0;i=0;while(i<samplepixels){b=(pixels[pix]&255)<<netbiasshift;g=(pixels[pix+1]&255)<<netbiasshift;r=(pixels[pix+2]&255)<<netbiasshift;j=contest(b,g,r);altersingle(alpha,j,b,g,r);if(rad!==0)alterneigh(rad,j,b,g,r);pix+=step;if(pix>=lengthcount)pix-=lengthcount;i++;if(delta===0)delta=1;if(i%delta===0){alpha-=alpha/alphadec;radius-=radius/radiusdec;rad=radius>>radiusbiasshift;if(rad<=1)rad=0;for(j=0;j<rad;j++)radpower[j]=alpha*((rad*rad-j*j)*radbias/(rad*rad))}}}function buildColormap(){init();learn();unbiasnet();inxbuild()}this.buildColormap=buildColormap;function getColormap(){var map=[];var index=[];for(var i=0;i<netsize;i++)index[network[i][3]]=i;var k=0;for(var l=0;l<netsize;l++){var j=index[l];map[k++]=network[j][0];map[k++]=network[j][1];map[k++]=network[j][2]}return map}this.getColormap=getColormap;this.lookupRGB=inxsearch}module.exports=NeuQuant},{}],4:[function(require,module,exports){var GIFEncoder,renderFrame;GIFEncoder=require(\"./GIFEncoder.js\");renderFrame=function(frame){var encoder,page,stream,transfer;encoder=new GIFEncoder(frame.width,frame.height);if(frame.index===0){encoder.writeHeader()}else{encoder.firstFrame=false}encoder.setTransparent(frame.transparent);encoder.setRepeat(frame.repeat);encoder.setDelay(frame.delay);encoder.setQuality(frame.quality);encoder.setDither(frame.dither);encoder.setGlobalPalette(frame.globalPalette);encoder.addFrame(frame.data);if(frame.last){encoder.finish()}if(frame.globalPalette===true){frame.globalPalette=encoder.getGlobalPalette()}stream=encoder.stream();frame.data=stream.pages;frame.cursor=stream.cursor;frame.pageSize=stream.constructor.pageSize;if(frame.canTransfer){transfer=function(){var i,len,ref,results;ref=frame.data;results=[];for(i=0,len=ref.length;i<len;i++){page=ref[i];results.push(page.buffer)}return results}();return self.postMessage(frame,transfer)}else{return self.postMessage(frame)}};self.onmessage=function(event){return renderFrame(event.data)}},{\"./GIFEncoder.js\":1}]},{},[4]);\n//# sourceMappingURL=gif.worker.js.map";
+    var blob = new Blob([workerSrc], {type: 'application/javascript'});
+    window.GIF_WORKER_URL = URL.createObjectURL(blob);
+  })();
+  </script>
+
+  <script>
   (() => {
     'use strict';
-
-    /* ═══════════════════════════════════════════════════════
-       SELF-CONTAINED GIF ENCODER (no external worker needed)
-       Based on the Jnordberg gif.js algorithm — pure JS
-    ═══════════════════════════════════════════════════════ */
-
-    // ── NeuQuant color quantizer ────────────────────────────
-    function NeuQuant(pixels, samplefac) {
-      const netsize = 256;
-      const maxnetpos = netsize - 1;
-      const netbiasshift = 4;
-      const ncycles = 100;
-      const intbiasshift = 16;
-      const intbias = 1 << intbiasshift;
-      const gammashift = 10;
-      const betagamma = intbias << (gammashift - 10);
-      const beta = intbias >> 10;
-      const alphabiasshift = 10;
-      const initalpha = 1 << alphabiasshift;
-      const radbiasshift = 8;
-      const radbias = 1 << radbiasshift;
-      const alpharadbias = 1 << (alphabiasshift + radbiasshift);
-      const initrad = netsize >> 3;
-      const radiusbiasshift = 6;
-      const radiusbias = 1 << radiusbiasshift;
-      const initradius = initrad * radiusbias;
-      const radiusdec = 30;
-
-      const network = [];
-      const netindex = new Int32Array(256);
-      const bias = new Int32Array(netsize);
-      const freq = new Int32Array(netsize);
-      const radpower = new Int32Array(netsize >> 3);
-
-      for (let i = 0; i < netsize; i++) {
-        const v = (i << (netbiasshift + 8)) / netsize | 0;
-        network[i] = new Int32Array([v, v, v, 0]);
-        freq[i] = intbias / netsize | 0;
-        bias[i] = 0;
-      }
-
-      function altersingle(alpha, i, b, g, r) {
-        network[i][0] -= (alpha * (network[i][0] - b) / initalpha) | 0;
-        network[i][1] -= (alpha * (network[i][1] - g) / initalpha) | 0;
-        network[i][2] -= (alpha * (network[i][2] - r) / initalpha) | 0;
-      }
-
-      function alterneigh(rad, i, b, g, r) {
-        const lo = Math.abs(i - rad), hi = Math.min(i + rad, netsize);
-        let j = i + 1, k = i - 1, m = 1;
-        while (j < hi || k > lo) {
-          const a = radpower[m++];
-          if (j < hi) { const p = network[j++]; p[0] -= (a * (p[0]-b)/alpharadbias)|0; p[1] -= (a*(p[1]-g)/alpharadbias)|0; p[2] -= (a*(p[2]-r)/alpharadbias)|0; }
-          if (k > lo)  { const p = network[k--]; p[0] -= (a * (p[0]-b)/alpharadbias)|0; p[1] -= (a*(p[1]-g)/alpharadbias)|0; p[2] -= (a*(p[2]-r)/alpharadbias)|0; }
-        }
-      }
-
-      function contest(b, g, r) {
-        let bestd = ~(1<<31), bestbiasd = bestd, bestpos = -1, bestbiaspos = -1;
-        for (let i = 0; i < netsize; i++) {
-          const n = network[i];
-          const dist = Math.abs(n[0]-b) + Math.abs(n[1]-g) + Math.abs(n[2]-r);
-          if (dist < bestd) { bestd = dist; bestpos = i; }
-          const biasdist = dist - ((bias[i]) >> (intbiasshift - netbiasshift));
-          if (biasdist < bestbiasd) { bestbiasd = biasdist; bestbiaspos = i; }
-          freq[i] -= (freq[i] >> 10);
-          bias[i] += (freq[i] << (gammashift - 10));
-        }
-        freq[bestpos] += beta;
-        bias[bestpos] -= betagamma;
-        return bestbiaspos;
-      }
-
-      // learn
-      let alpha = initalpha, radius = initradius;
-      let rad = radius >> radiusbiasshift;
-      if (rad <= 1) rad = 0;
-      for (let i = 0; i < rad; i++) radpower[i] = alpha * (((rad*rad - i*i) * radbias) / (rad*rad)) | 0;
-
-      const len = pixels.length;
-      let step;
-      if (len < 3 * 499) step = 3;
-      else if (len % 499 !== 0) step = 3 * 499;
-      else if (len % 491 !== 0) step = 3 * 491;
-      else if (len % 487 !== 0) step = 3 * 487;
-      else step = 3 * 503;
-
-      const samplepixels = len / (3 * samplefac) | 0;
-      let delta = (samplepixels / ncycles) | 0;
-      if (delta < 1) delta = 1;
-
-      let pix = 0;
-      for (let i = 0; i < samplepixels; ) {
-        const b = (pixels[pix]   & 0xff) << netbiasshift;
-        const g = (pixels[pix+1] & 0xff) << netbiasshift;
-        const r = (pixels[pix+2] & 0xff) << netbiasshift;
-        const j = contest(b, g, r);
-        altersingle(alpha, j, b, g, r);
-        if (rad !== 0) alterneigh(rad, j, b, g, r);
-        pix += step;
-        if (pix >= len) pix -= len;
-        if (++i % delta === 0) {
-          alpha -= alpha / 30;
-          radius -= radius / radiusdec;
-          rad = radius >> radiusbiasshift;
-          if (rad <= 1) rad = 0;
-          for (let j2 = 0; j2 < rad; j2++) radpower[j2] = alpha * (((rad*rad - j2*j2) * radbias) / (rad*rad)) | 0;
-        }
-      }
-
-      // unbiasnet
-      for (let i = 0; i < netsize; i++) {
-        network[i][0] >>= netbiasshift;
-        network[i][1] >>= netbiasshift;
-        network[i][2] >>= netbiasshift;
-        network[i][3] = i;
-      }
-
-      // inxbuild
-      let previouscol = 0, startpos = 0;
-      for (let i = 0; i < netsize; i++) {
-        const p = network[i];
-        let smallpos = i, smallval = p[1];
-        for (let j = i+1; j < netsize; j++) { const q = network[j]; if (q[1] < smallval) { smallpos = j; smallval = q[1]; } }
-        const q = network[smallpos];
-        if (i !== smallpos) {
-          let j = q[0]; q[0] = p[0]; p[0] = j;
-          j = q[1]; q[1] = p[1]; p[1] = j;
-          j = q[2]; q[2] = p[2]; p[2] = j;
-          j = q[3]; q[3] = p[3]; p[3] = j;
-        }
-        if (smallval !== previouscol) {
-          netindex[previouscol] = (startpos + i) >> 1;
-          for (let j = previouscol+1; j < smallval; j++) netindex[j] = i;
-          previouscol = smallval; startpos = i;
-        }
-      }
-      netindex[previouscol] = (startpos + maxnetpos) >> 1;
-      for (let j = previouscol+1; j < 256; j++) netindex[j] = maxnetpos;
-
-      // colormap
-      const map = new Uint8Array(netsize * 3);
-      const index = new Int32Array(netsize);
-      for (let i = 0; i < netsize; i++) index[network[i][3]] = i;
-      let k = 0;
-      for (let l = 0; l < netsize; l++) { const j = index[l]; map[k++] = network[j][0]; map[k++] = network[j][1]; map[k++] = network[j][2]; }
-
-      // lookup
-      function lookup(r, g, b) {
-        let bestd = 1000, best = -1;
-        let i = netindex[g], j = i - 1;
-        while (i < netsize || j >= 0) {
-          if (i < netsize) {
-            const c = network[i]; let dist = c[1] - g;
-            if (dist >= bestd) i = netsize;
-            else { i++; if (dist < 0) dist = -dist; let a = c[0]-b; if (a<0)a=-a; dist+=a; if (dist < bestd) { a=c[2]-r; if(a<0)a=-a; dist+=a; if (dist<bestd){bestd=dist;best=c[3];} } }
-          }
-          if (j >= 0) {
-            const c = network[j]; let dist = g - c[1];
-            if (dist >= bestd) j = -1;
-            else { j--; if (dist < 0) dist = -dist; let a = c[0]-b; if (a<0)a=-a; dist+=a; if (dist < bestd) { a=c[2]-r; if(a<0)a=-a; dist+=a; if (dist<bestd){bestd=dist;best=c[3];} } }
-          }
-        }
-        return best;
-      }
-
-      return { map, lookup };
-    }
-
-    // ── LZW encoder ─────────────────────────────────────────
-    function lzwEncode(indexStream, colorDepth) {
-      const clearCode = 1 << colorDepth;
-      const eofCode = clearCode + 1;
-      let codeSize = colorDepth + 1;
-      let maxCode = clearCode + 2;
-      const dict = new Map();
-
-      const out = [];
-      let buf = 0, bufBits = 0;
-
-      function writeBits(code, bits) {
-        buf |= code << bufBits;
-        bufBits += bits;
-        while (bufBits >= 8) { out.push(buf & 0xff); buf >>= 8; bufBits -= 8; }
-      }
-
-      function writeCode(c) { writeBits(c, codeSize); }
-
-      writeCode(clearCode);
-      let prefix = indexStream[0];
-      for (let i = 1; i < indexStream.length; i++) {
-        const pixel = indexStream[i];
-        const key = (prefix << 8) | pixel;
-        if (dict.has(key)) {
-          prefix = dict.get(key);
-        } else {
-          writeCode(prefix);
-          dict.set(key, maxCode++);
-          if (maxCode > (1 << codeSize)) {
-            if (codeSize < 12) codeSize++;
-            else { writeCode(clearCode); dict.clear(); maxCode = clearCode + 2; codeSize = colorDepth + 1; }
-          }
-          prefix = pixel;
-        }
-      }
-      writeCode(prefix);
-      writeCode(eofCode);
-      if (bufBits > 0) out.push(buf & 0xff);
-      return new Uint8Array(out);
-    }
-
-    // ── GIF builder ─────────────────────────────────────────
-    function buildGIF(frames, { delay = 200, loop = 0 }) {
-      const parts = [];
-      const push = b => parts.push(b instanceof Uint8Array ? b : new Uint8Array(b));
-      const str  = s => new Uint8Array([...s].map(c => c.charCodeAt(0)));
-      const u16le = n => [n & 0xff, (n >> 8) & 0xff];
-
-      const { width, height } = frames[0];
-
-      // Header
-      push(str('GIF89a'));
-      push([...u16le(width), ...u16le(height), 0x00, 0x00, 0x00]);
-
-      // Netscape loop extension
-      if (loop >= 0) {
-        push([0x21, 0xFF, 0x0B]);
-        push(str('NETSCAPE2.0'));
-        push([0x03, 0x01, ...u16le(loop === 0 ? 0 : loop), 0x00]);
-      }
-
-      for (const frame of frames) {
-        const { width: fw, height: fh, pixels } = frame;
-
-        // Quantize
-        const nq = NeuQuant(pixels, 10);
-        const colorTable = nq.map; // 768 bytes
-
-        // Palette
-        const colorDepth = 8;
-        const paletteSize = 256;
-
-        // Build index stream
-        const indexStream = new Uint8Array(fw * fh);
-        for (let i = 0; i < fw * fh; i++) {
-          indexStream[i] = nq.lookup(pixels[i*3+2], pixels[i*3+1], pixels[i*3]);
-        }
-
-        // Graphic Control Extension (delay)
-        const d = Math.round(delay / 10);
-        push([0x21, 0xF9, 0x04, 0x00, ...u16le(d), 0x00, 0x00]);
-
-        // Image descriptor
-        push([0x2C, ...u16le(0), ...u16le(0), ...u16le(fw), ...u16le(fh), 0x80 | (colorDepth - 1)]);
-
-        // Local color table (full 256 * 3 bytes)
-        const lct = new Uint8Array(paletteSize * 3);
-        lct.set(colorTable);
-        push(lct);
-
-        // Image data - LZW
-        const lzw = lzwEncode(indexStream, colorDepth);
-        push([colorDepth]);
-        // Sub-blocks of max 255 bytes
-        let off = 0;
-        while (off < lzw.length) {
-          const chunk = Math.min(255, lzw.length - off);
-          push([chunk]);
-          push(lzw.subarray(off, off + chunk));
-          off += chunk;
-        }
-        push([0x00]); // block terminator
-      }
-
-      push([0x3B]); // trailer
-
-      // Assemble
-      let total = 0;
-      for (const p of parts) total += p.length;
-      const out = new Uint8Array(total);
-      let cursor = 0;
-      for (const p of parts) { out.set(p, cursor); cursor += p.length; }
-      return out;
-    }
-
-    /* ═══════════════════════════════════════════════════════
-       APP
-    ═══════════════════════════════════════════════════════ */
-
-    const state = { images: [], gifData: null, working: false };
+    const state = { images: [], gifBlob: null, working: false };
     const $ = id => document.getElementById(id);
     const el = {
       dropZone:    $('dropZone'),
@@ -978,7 +428,6 @@
       previewEmpty:$('previewEmpty'),
     };
 
-    // ── Drop zone ────────────────────────────────────────────
     el.dropZone.onclick = () => el.fileInput.click();
     el.dropZone.addEventListener('dragover', e => { e.preventDefault(); el.dropZone.classList.add('over'); });
     el.dropZone.addEventListener('dragleave', () => el.dropZone.classList.remove('over'));
@@ -993,7 +442,7 @@
         const url = URL.createObjectURL(f);
         const img = new Image();
         img.onload  = () => res({ file: f, img, url });
-        img.onerror = () => rej(new Error(`Could not load: ${f.name}`));
+        img.onerror = () => rej(new Error('Could not load: ' + f.name));
         img.src = url;
       }))).then(loaded => {
         state.images.push(...loaded);
@@ -1001,20 +450,18 @@
       }).catch(err => showStatus(err.message, 'err'));
     }
 
-    // ── Strip ────────────────────────────────────────────────
     function renderStrip() {
       el.frameStrip.innerHTML = '';
       state.images.forEach((item, i) => {
         const div = document.createElement('div');
         div.className = 'thumb'; div.draggable = true;
-        const img = document.createElement('img');
-        img.src = item.url; img.alt = `Frame ${i+1}`;
+        const img = document.createElement('img'); img.src = item.url; img.alt = 'Frame ' + (i+1);
         const num = document.createElement('span'); num.className = 'tnum'; num.textContent = i+1;
-        const del = document.createElement('span'); del.className = 'tdel'; del.textContent = '×';
+        const del = document.createElement('span'); del.className = 'tdel'; del.textContent = 'x';
         del.onclick = e => { e.stopPropagation(); URL.revokeObjectURL(item.url); state.images.splice(i,1); renderStrip(); syncUI(); };
         div.append(img, num, del);
         div.addEventListener('dragstart', ev => ev.dataTransfer.setData('srcIdx', i));
-        div.addEventListener('dragover', ev => { ev.preventDefault(); div.style.outline = '2px solid var(--orange)'; div.style.borderRadius = '6px'; });
+        div.addEventListener('dragover', ev => { ev.preventDefault(); div.style.outline = '2px solid var(--orange)'; });
         div.addEventListener('dragleave', () => div.style.outline = '');
         div.addEventListener('drop', ev => {
           ev.preventDefault(); div.style.outline = '';
@@ -1028,7 +475,7 @@
       });
       const n = state.images.length;
       el.stripSection.style.display = n ? 'block' : 'none';
-      el.stripCount.textContent = `${n} frame${n!==1?'s':''} loaded`;
+      el.stripCount.textContent = n + ' frame' + (n !== 1 ? 's' : '') + ' loaded';
     }
 
     function syncUI() {
@@ -1037,77 +484,81 @@
       el.clearBtn.style.display = has ? 'block' : 'none';
     }
 
-    // ── Create ───────────────────────────────────────────────
-    el.createBtn.onclick = () => generate();
+    el.createBtn.onclick = generate;
 
-    async function generate() {
+    function generate() {
       if (state.working || !state.images.length) return;
       state.working = true;
       el.createBtn.disabled = true;
-      el.createLabel.innerHTML = '<span class="spinner"></span>&nbsp; Working…';
+      el.createLabel.innerHTML = '<span class="spinner"></span>&nbsp; Working...';
       hideStatus(); hideStats();
       el.progressCard.style.display = 'block';
+      setProg(0, 'Preparing frames...');
 
       const delay   = +$('delayInput').value;
       const quality = +$('qualityInput').value;
       const maxPx   = +$('sizeInput').value;
       const loop    = +$('loopInput').value;
 
-      setProg(0, 'Extracting frame data…');
+      // Build canvases first
+      const canvases = [];
+      let gifW = 0, gifH = 0;
+
+      for (let i = 0; i < state.images.length; i++) {
+        const src = state.images[i].img;
+        let w = src.naturalWidth, h = src.naturalHeight;
+        if (w > maxPx || h > maxPx) {
+          if (w > h) { h = Math.round(h * maxPx / w); w = maxPx; }
+          else        { w = Math.round(w * maxPx / h); h = maxPx; }
+        }
+        if (i === 0) { gifW = w; gifH = h; }
+        const c = document.createElement('canvas');
+        c.width = gifW; c.height = gifH;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, gifW, gifH);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(src, 0, 0, gifW, gifH);
+        canvases.push(c);
+      }
+
+      // Use gif.js with inline worker blob URL
+      const gif = new GIF({
+        workers: 2,
+        quality: quality,
+        repeat: loop,
+        workerScript: window.GIF_WORKER_URL
+      });
+
+      canvases.forEach(c => gif.addFrame(c, { delay: delay, copy: true }));
+
+      gif.on('progress', p => {
+        setProg(Math.round(p * 100), 'Rendering GIF... ' + Math.round(p * 100) + '%');
+      });
+
+      gif.on('finished', blob => {
+        state.gifBlob = blob;
+        state.working = false;
+        el.progressCard.style.display = 'none';
+        el.createLabel.textContent = 'Regenerate GIF';
+        el.downloadBtn.style.display = 'block';
+        displayGIF(blob);
+        showStats(blob, delay, gifW, gifH);
+        syncUI();
+      });
+
+      gif.on('abort', () => {
+        state.working = false;
+        el.progressCard.style.display = 'none';
+        el.createLabel.textContent = 'Generate GIF';
+        showStatus('GIF creation was aborted.', 'err');
+        syncUI();
+      });
 
       try {
-        const frames = [];
-        let gifWidth = 0, gifHeight = 0;
-
-        for (let i = 0; i < state.images.length; i++) {
-          await tick();
-          const canvas = document.createElement('canvas');
-          const src = state.images[i].img;
-          let w = src.naturalWidth, h = src.naturalHeight;
-          if (w > maxPx || h > maxPx) {
-            if (w > h) { h = Math.round(h * maxPx / w); w = maxPx; }
-            else        { w = Math.round(w * maxPx / h); h = maxPx; }
-          }
-          // All frames same size as first frame
-          if (i === 0) { gifWidth = w; gifHeight = h; }
-          canvas.width = gifWidth; canvas.height = gifHeight;
-          const ctx = canvas.getContext('2d');
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, gifWidth, gifHeight);
-          ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = 'high';
-          ctx.drawImage(src, 0, 0, gifWidth, gifHeight);
-
-          const imgData = ctx.getImageData(0, 0, gifWidth, gifHeight);
-          // Convert RGBA → RGB
-          const rgb = new Uint8Array(gifWidth * gifHeight * 3);
-          for (let p = 0; p < gifWidth * gifHeight; p++) {
-            rgb[p*3]   = imgData.data[p*4];
-            rgb[p*3+1] = imgData.data[p*4+1];
-            rgb[p*3+2] = imgData.data[p*4+2];
-          }
-          frames.push({ width: gifWidth, height: gifHeight, pixels: rgb });
-          setProg(Math.round(((i+1)/state.images.length) * 70), `Encoding frame ${i+1} / ${state.images.length}`);
-        }
-
-        setProg(75, 'Building GIF file…');
-        await tick();
-
-        const gifData = buildGIF(frames, { delay, loop });
-        state.gifData = gifData;
-
-        setProg(100, 'Done!');
-        await tick();
-
-        const blob = new Blob([gifData], { type: 'image/gif' });
-        displayGIF(blob);
-        showStats(blob, delay, gifWidth, gifHeight);
-        el.downloadBtn.style.display = 'block';
-        el.progressCard.style.display = 'none';
-        state.working = false;
-        el.createLabel.textContent = 'Regenerate GIF';
-        syncUI();
-      } catch (e) {
+        gif.render();
+      } catch(e) {
         state.working = false;
         el.progressCard.style.display = 'none';
         el.createLabel.textContent = 'Generate GIF';
@@ -1116,23 +567,18 @@
       }
     }
 
-    function tick() { return new Promise(r => setTimeout(r, 20)); }
-
-    // ── Download ─────────────────────────────────────────────
     el.downloadBtn.onclick = () => {
-      if (!state.gifData) return;
-      const blob = new Blob([state.gifData], { type: 'image/gif' });
+      if (!state.gifBlob) return;
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `gif-studio-${Date.now()}.gif`;
+      a.href = URL.createObjectURL(state.gifBlob);
+      a.download = 'gif-studio-' + Date.now() + '.gif';
       a.click();
-      showStatus('✓ GIF downloaded successfully!', 'ok');
+      showStatus('GIF downloaded!', 'ok');
     };
 
-    // ── Clear ────────────────────────────────────────────────
     el.clearBtn.onclick = () => {
       state.images.forEach(i => URL.revokeObjectURL(i.url));
-      state.images = []; state.gifData = null;
+      state.images = []; state.gifBlob = null;
       renderStrip(); syncUI(); hideStats(); hideStatus();
       el.progressCard.style.display = 'none';
       el.downloadBtn.style.display = 'none';
@@ -1141,7 +587,6 @@
       el.createLabel.textContent = 'Generate GIF';
     };
 
-    // ── Display GIF ───────────────────────────────────────────
     function displayGIF(blob) {
       el.previewCard.querySelectorAll('img').forEach(i => i.remove());
       el.previewEmpty.style.display = 'none';
@@ -1151,43 +596,36 @@
       el.previewCard.appendChild(img);
     }
 
-    // ── Stats ─────────────────────────────────────────────────
     function showStats(blob, delay, w, h) {
       const n   = state.images.length;
-      const kb  = blob.size < 1048576 ? `${(blob.size/1024).toFixed(0)} KB` : `${(blob.size/1048576).toFixed(1)} MB`;
-      const dur = `${((n * delay)/1000).toFixed(2)}s`;
+      const kb  = blob.size < 1048576 ? Math.round(blob.size/1024) + ' KB' : (blob.size/1048576).toFixed(1) + ' MB';
       el.sFrames.textContent   = n;
       el.sSize.textContent     = kb;
-      el.sDuration.textContent = dur;
-      el.sDims.textContent     = `${w} × ${h}`;
+      el.sDuration.textContent = ((n * delay) / 1000).toFixed(2) + 's';
+      el.sDims.textContent     = w + ' x ' + h;
       el.statsCard.style.display = 'block';
     }
+
     function hideStats() { el.statsCard.style.display = 'none'; }
-
-    // ── Progress ──────────────────────────────────────────────
     function setProg(pct, label) {
-      el.progFill.style.width  = pct + '%';
+      el.progFill.style.width = pct + '%';
       el.progLabel.textContent = label;
-      el.progPct.textContent   = pct + '%';
+      el.progPct.textContent = pct + '%';
     }
-
-    // ── Status ────────────────────────────────────────────────
     function showStatus(msg, type) {
       el.statusMsg.textContent = msg;
-      el.statusMsg.className = `status-msg ${type}`;
+      el.statusMsg.className = 'status-msg ' + type;
       el.statusMsg.style.display = 'block';
       if (type === 'ok') setTimeout(hideStatus, 4000);
     }
     function hideStatus() { el.statusMsg.style.display = 'none'; }
 
-    // ── Keyboard shortcuts ────────────────────────────────────
     document.addEventListener('keydown', e => {
       const mod = e.ctrlKey || e.metaKey;
       if (mod && e.key === 'o') { e.preventDefault(); el.fileInput.click(); }
       if (mod && e.key === 'Enter') { e.preventDefault(); if (!el.createBtn.disabled) el.createBtn.click(); }
-      if (mod && e.key === 's') { e.preventDefault(); if (state.gifData) el.downloadBtn.click(); }
+      if (mod && e.key === 's') { e.preventDefault(); if (state.gifBlob) el.downloadBtn.click(); }
     });
-
   })();
   </script>
 </body>
